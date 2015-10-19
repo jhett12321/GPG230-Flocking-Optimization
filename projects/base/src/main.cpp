@@ -44,7 +44,7 @@ int main()
 	p.spec.SetHeading(FA::SensorSpecification(30, 30, 90, 90, 50, 50));
 	p.spec.SetSpeed(FA::SensorSpecification(40, 40, 70, 70, 20, 20));
 	p.spec.SetFlee(FA::SensorSpecification(40, 40, 180, 180, 220, 220));
-	
+
 	for (int i = 0; i < 250; ++i)
 	{
 		FA::App::Instance().GetAgentFactory()->Create(p);
@@ -54,7 +54,7 @@ int main()
 #pragma region pred
 	p.isPrey = false;
 	p.spec.SetChase(FA::SensorSpecification(240, 240, 90, 90, 1000, 1000));
-	
+
 	for (int i = 0; i < 3; i++)
 	{
 		FA::App::Instance().GetAgentFactory()->Create(p);

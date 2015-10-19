@@ -95,7 +95,7 @@ void FA::FlockingAgent::Update(float dt, FlockingAgent** agents, size_t count)
 
 void FA::FlockingAgent::PredChaseUpdate(int i, float dt, FlockingAgent** agents, size_t count)
 {
-	//preditor is dumb right now, just wants to find the closest prey
+	//predator is dumb right now, just wants to find the closest prey
 	kf::Vector2f diff = agents[i]->GetPosition() - GetPosition();
 
 	if (IsInSensor(*this,mSensorArray.GetChase(), diff))
@@ -110,7 +110,7 @@ void FA::FlockingAgent::PredChaseUpdate(int i, float dt, FlockingAgent** agents,
 
 void FA::FlockingAgent::PreyFleeUpdate(int i, float dt, FlockingAgent** agents, size_t count)
 {
-	//prey wants to find the average pos of its preditors 
+	//prey wants to find the average pos of its preditors
 	kf::Vector2f diff = agents[i]->GetPosition() - GetPosition();
 	float diffLen = diff.length();
 	kf::Vector2f diffNorm = diff / diffLen;
@@ -191,7 +191,7 @@ void FA::FlockingAgent::Finalise(float dt)
 		spd = ourHeading * mSensorArray.GetSpeed().GetInfluence();
 	}
 
-	//very much don't be where the preditors are
+	//very much don't be where the predators are
 	kf::Vector2f flee = mFleeCache.Average();
 	flee = flee * -1;//away from that location
 	flee *= mSensorArray.GetFlee().GetInfluence();

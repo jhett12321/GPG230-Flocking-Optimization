@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Network.hpp>
+#include "App.hpp"
 
 FA::Scene::Scene()
 {
@@ -32,6 +33,41 @@ void FA::Scene::Update(float dt)
 	for (auto f : mAgents)
 	{
 		f->Finalise(dt);
+	}
+
+
+	sf::Vector2u windowSize = FA::App::Instance().GetWindow()->getSize();
+	float agentSize = 0.0f;
+
+	//Check positions and wrap around.
+	for (auto f : mAgents)
+	{
+		kf::Vector2f currentPos = f->GetPosition();
+
+		//Agent went off the left side of the screen.
+		if (f->GetPosition().x < -agentSize)
+		{
+			f->SetPosition(kf::Vector2f(windowSize.x + agentSize, currentPos.y));
+		}
+
+		//Agent went off the right of the screen
+		else if (f->GetPosition().x > windowSize.x + agentSize)
+		{
+			f->SetPosition(kf::Vector2f(-agentSize, currentPos.y));
+		}
+
+		//Agent went off the top of the screen.
+		if (f->GetPosition().y < -agentSize)
+		{
+			f->SetPosition(kf::Vector2f(currentPos.x, windowSize.y + agentSize));
+		}
+
+		//Agent went off the bottom of the screen
+		else if (f->GetPosition().y > windowSize.y + agentSize)
+		{
+			f->SetPosition(kf::Vector2f(currentPos.x, -agentSize));
+		}
+
 	}
 }
 
@@ -70,10 +106,10 @@ void FA::Scene::Render(sf::RenderWindow& rw)
 
 	//not great but good enough
 //	sf::View v(kf::Vector2f(0, 0), kf::Vector2f(100, 100));//r);
-	sf::View v(r);
+	//sf::View v(r);
 
 
-	rw.setView(v);
+	//rw.setView(v);
 
 	//sf::UdpSocket sock;
 	//sf::IpAddress ip("10.40.60.35");

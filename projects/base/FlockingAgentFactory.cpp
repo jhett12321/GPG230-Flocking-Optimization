@@ -10,7 +10,7 @@ FA::FlockingAgent* FA::AgentFactory::Create(const FA::AgentFactory::Params& p)co
 	float size = p.size.Rand();
 	float mass = p.mass.Rand();
 	retval->SetSensorArray(p.spec.Generate());
-	
+
 	//set up dynamic body
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
@@ -35,14 +35,24 @@ FA::FlockingAgent* FA::AgentFactory::Create(const FA::AgentFactory::Params& p)co
 	retval->SetCentreCircle(new sf::CircleShape(size));
 	retval->GetCentreCircle()->setOrigin(size, size);
 
+	//Start position
+	sf::Vector2u windowSize = App::Instance().GetWindow()->getSize();
+
+	kf::Vector2f startPos;
+	startPos.x = rand() % windowSize.x;
+	startPos.y = rand() % windowSize.y;
+
 	//set vals
-	retval->SetPosition(p.spawnAt.Rand());
+	retval->SetPosition(startPos);
 	retval->SetVelocity(p.startingVel.Rand());
 	retval->SetMaxAccel(p.accel.Rand());
 	retval->SetIsPrey(p.isPrey);
 
-
+	//Add our agent
 	FA::App::Instance().GetScene()->AddAgent(retval);
+
+	//Add our "user data" to the body.
+	body->SetUserData(retval);
 
 	return retval;
 }

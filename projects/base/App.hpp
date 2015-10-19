@@ -5,6 +5,7 @@
 #include <SFML\Graphics.hpp>
 #include <Box2D\Box2D.h>
 
+#include "AgentCallbackListener.hpp"
 #include "FlockingAgentFactory.hpp"
 #include "ObstacleFactory.hpp"
 #include "Macros.hpp"
@@ -34,6 +35,8 @@ namespace FA
 		RO_PTR_PROPERTY(FA::AgentFactory, AgentFactory);
 		RO_PTR_PROPERTY(FA::ObstacleFactory, ObstacleFactory);
 		RO_PTR_PROPERTY(FA::Scene, Scene);
+
+		RO_PTR_PROPERTY(AgentContactListener, ContactListener);
 
 	private:
 		App() :mIsRunning(false), mIsInit(false){}

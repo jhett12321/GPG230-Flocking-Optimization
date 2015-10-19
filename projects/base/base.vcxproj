@@ -96,6 +96,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AgentCallbackListener.hpp" />
     <ClInclude Include="App.hpp" />
     <ClInclude Include="Debug.hpp" />
     <ClInclude Include="FlockingAgent.hpp" />

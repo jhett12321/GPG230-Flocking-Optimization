@@ -74,5 +74,8 @@
     <ClInclude Include="packetformat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AgentCallbackListener.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

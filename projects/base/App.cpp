@@ -13,7 +13,7 @@ bool FA::App::Init()
 {
 	if (mIsInit)
 		return true;
-	
+
 	//create window, worlds, factories, etc.
 	mWindow = new sf::RenderWindow(sf::VideoMode(800, 800, 32), WINDOW_TITLE, sf::Style::Close);
 	mWindow->setVerticalSyncEnabled(true);
@@ -23,6 +23,8 @@ bool FA::App::Init()
 	mObstacleFactory = new FA::ObstacleFactory(mPhysWorld);
 	mScene = new FA::Scene();
 
+	mContactListener = new AgentContactListener();
+	mPhysWorld->SetContactListener(mContactListener);
 
 	mIsInit = true;
 	return mIsInit;
@@ -30,7 +32,7 @@ bool FA::App::Init()
 
 void FA::App::Run()
 {
-	if (mIsRunning) 
+	if (mIsRunning)
 		return;
 
 	mIsRunning = true;
