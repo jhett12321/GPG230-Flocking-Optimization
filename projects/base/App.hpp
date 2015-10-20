@@ -26,6 +26,10 @@ namespace FA
 
 		void Run();
 
+		void PhysicsUpdate(float deltaT);
+		
+		void RenderUpdate(float deltaT, sf::Clock& frameRateClock);
+
 	protected:
 		RO_PTR_PROPERTY(sf::RenderWindow, Window);
 		RO_PTR_PROPERTY(sf::Clock, Clock);

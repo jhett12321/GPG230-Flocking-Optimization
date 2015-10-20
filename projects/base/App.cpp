@@ -1,5 +1,6 @@
 #include "App.hpp"
 #include "Debug.hpp"
+#include <chaiscript/chaiscript.hpp>
 
 const std::string WINDOW_TITLE = "Flocking Agents - ";
 
@@ -13,6 +14,12 @@ bool FA::App::Init()
 {
 	if (mIsInit)
 		return true;
+
+	//Load Config Data
+	chaiscript::ChaiScript chai;
+	chai.eval_file("config.chai");
+
+
 
 	//create window, worlds, factories, etc.
 	mWindow = new sf::RenderWindow(sf::VideoMode(800, 800, 32), WINDOW_TITLE, sf::Style::Close);
@@ -58,13 +65,24 @@ void FA::App::Run()
 
 		// deltaT is the amount of time that has gone by since the last frame.
 		float deltaT = std::min(mClock->restart().asSeconds(), 0.1f);
+		PhysicsUpdate(0.01f);
+		RenderUpdate(deltaT, frameRateClock);
+	}
+}
 
-		//step scene
-		mScene->Update(deltaT);
+void FA::App::PhysicsUpdate(float deltaT)
+{
+	//step scene
+	mScene->Update(deltaT);
 
-		//default physics steps recommended by box2d
-		mPhysWorld->Step(deltaT, 6, 2);
+	//default physics steps recommended by box2d
+	mPhysWorld->Step(deltaT, 6, 2);
+}
 
+void FA::App::RenderUpdate(float deltaT, sf::Clock& frameRateClock)
+{
+	if (frameRateClock.getElapsedTime().asMilliseconds() % 16)
+	{
 		// Clear the window.
 		mWindow->clear();
 
@@ -75,13 +93,11 @@ void FA::App::Run()
 
 		// Calling display will make the contents of the window appear on screen (before this, it was kept hidden in the back buffer).
 		mWindow->display();
-		if (frameRateClock.getElapsedTime().asSeconds() > 0.1f)
-		{
-			deltaT = roundf(1 / deltaT);
-			int frames = deltaT;
-			mWindow->setTitle(WINDOW_TITLE + std::to_string(frames));
-			frameRateClock.restart();
-		}
+
+		deltaT = roundf(1 / deltaT);
+		int frames = deltaT;
+		mWindow->setTitle(WINDOW_TITLE + std::to_string(frames));
+		frameRateClock.restart();
 	}
 }
 
