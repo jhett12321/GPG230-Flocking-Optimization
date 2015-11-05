@@ -1,6 +1,7 @@
 #include "FlockingAgentFactory.hpp"
 #include "Range.hpp"
 #include "App.hpp"
+#include "Scene.hpp"
 
 FA::FlockingAgent* FA::AgentFactory::Create(const FA::AgentFactory::Params& p)const
 {

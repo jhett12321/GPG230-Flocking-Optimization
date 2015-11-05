@@ -2,25 +2,32 @@
 #include <Box2D/Dynamics/Contacts/b2Contact.h>
 #include "FlockingAgent.hpp"
 
-class AgentContactListener : public b2ContactListener
+namespace FA
 {
-	void EndContact(b2Contact* contact)
+
+	class AgentContactListener : public b2ContactListener
 	{
-		//check if contacting objects are both agents.
-		void* contactA = contact->GetFixtureA()->GetBody()->GetUserData();
-		void* contactB = contact->GetFixtureB()->GetBody()->GetUserData();
+	public:
+		AgentContactListener() {}
 
-		if (contactA && contactB)
+		void EndContact(b2Contact* contact)
 		{
-			FA::FlockingAgent* agentA = (FA::FlockingAgent*) contactA;
-			FA::FlockingAgent* agentB = (FA::FlockingAgent*) contactB;
+			//check if contacting objects are both agents.
+			void* contactA = contact->GetFixtureA()->GetBody()->GetUserData();
+			void* contactB = contact->GetFixtureB()->GetBody()->GetUserData();
 
-			//If one of us is not prey (predator), we now become a predator.
-			if (agentA->GetIsPrey() != agentB->GetIsPrey())
+			if (contactA && contactB)
 			{
-				agentA->SetIsPrey(false);
-				agentB->SetIsPrey(false);
+				FA::FlockingAgent* agentA = (FA::FlockingAgent*) contactA;
+				FA::FlockingAgent* agentB = (FA::FlockingAgent*) contactB;
+
+				//If one of us is not prey (predator), we now become a predator.
+				if (agentA->GetIsPrey() != agentB->GetIsPrey())
+				{
+					agentA->SetIsPrey(false);
+					agentB->SetIsPrey(false);
+				}
 			}
 		}
-	}
-};
+	};
+}

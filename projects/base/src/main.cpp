@@ -45,7 +45,7 @@ int main()
 	p.spec.SetSpeed(FA::SensorSpecification(40, 40, 70, 70, 20, 20));
 	p.spec.SetFlee(FA::SensorSpecification(40, 40, 180, 180, 220, 220));
 
-	for (int i = 0; i < 250; ++i)
+	for (int i = 0; i < 500; ++i)
 	{
 		FA::App::Instance().GetAgentFactory()->Create(p);
 	}

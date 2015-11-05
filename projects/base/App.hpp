@@ -5,14 +5,27 @@
 #include <SFML\Graphics.hpp>
 #include <Box2D\Box2D.h>
 
-#include "AgentCallbackListener.hpp"
-#include "FlockingAgentFactory.hpp"
-#include "ObstacleFactory.hpp"
+//#include "AgentCallbackListener.hpp"
+//#include "FlockingAgentFactory.hpp"
+//#include "ObstacleFactory.hpp"
 #include "Macros.hpp"
-#include "Scene.hpp"
+//#include "Scene.hpp"
+
+namespace sf
+{
+	class Clock;
+}
+
+
+class b2World;
 
 namespace FA
 {
+	class AgentFactory;
+	class ObstacleFactory;
+	class Scene;
+	class AgentContactListener;
+
 	/**
 		App controls the window and how to set up the scene
 	*/
@@ -40,7 +53,7 @@ namespace FA
 		RO_PTR_PROPERTY(FA::ObstacleFactory, ObstacleFactory);
 		RO_PTR_PROPERTY(FA::Scene, Scene);
 
-		RO_PTR_PROPERTY(AgentContactListener, ContactListener);
+		RO_PTR_PROPERTY(FA::AgentContactListener, ContactListener);
 
 	private:
 		App() :mIsRunning(false), mIsInit(false){}

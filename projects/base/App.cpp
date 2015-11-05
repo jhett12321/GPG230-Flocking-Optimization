@@ -1,6 +1,10 @@
 #include "App.hpp"
 #include "Debug.hpp"
-#include <chaiscript/chaiscript.hpp>
+#include "FlockingAgentFactory.hpp"
+#include "ObstacleFactory.hpp"
+#include "Scene.hpp"
+#include "Box2D\Box2D.h"
+#include "AgentCallbackListener.hpp"
 
 const std::string WINDOW_TITLE = "Flocking Agents - ";
 
@@ -14,12 +18,6 @@ bool FA::App::Init()
 {
 	if (mIsInit)
 		return true;
-
-	//Load Config Data
-	chaiscript::ChaiScript chai;
-	chai.eval_file("config.chai");
-
-
 
 	//create window, worlds, factories, etc.
 	mWindow = new sf::RenderWindow(sf::VideoMode(800, 800, 32), WINDOW_TITLE, sf::Style::Close);
@@ -81,8 +79,8 @@ void FA::App::PhysicsUpdate(float deltaT)
 
 void FA::App::RenderUpdate(float deltaT, sf::Clock& frameRateClock)
 {
-	if (frameRateClock.getElapsedTime().asMilliseconds() % 16)
-	{
+	//if (frameRateClock.getElapsedTime().asMilliseconds() % 16)
+	//{
 		// Clear the window.
 		mWindow->clear();
 
@@ -98,7 +96,7 @@ void FA::App::RenderUpdate(float deltaT, sf::Clock& frameRateClock)
 		int frames = deltaT;
 		mWindow->setTitle(WINDOW_TITLE + std::to_string(frames));
 		frameRateClock.restart();
-	}
+	//}
 }
 
 FA::App::~App()

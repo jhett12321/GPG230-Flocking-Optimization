@@ -1,5 +1,6 @@
 #include "ObstacleFactory.hpp"
 #include "App.hpp"
+#include "Scene.hpp"
 
 FA::Obstacle* FA::ObstacleFactory::Create(Params& p)
 {
