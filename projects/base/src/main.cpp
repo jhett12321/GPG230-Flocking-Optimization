@@ -30,6 +30,15 @@ int main()
 
 	//add some place holder agents, preds and obs to demonstrate functionality
 
+	//TODO configurables
+	int agentCount = 500;
+	float predatorRatio = 0.1f;
+
+	int predatorCount = std::roundf((float)agentCount / predatorRatio);
+	int preyCount = agentCount - predatorCount;
+
+	//Prey Configurables
+
 #pragma region prey
 	FA::AgentFactory::Params p;
 
@@ -45,7 +54,7 @@ int main()
 	p.spec.SetSpeed(FA::SensorSpecification(40, 40, 70, 70, 20, 20));
 	p.spec.SetFlee(FA::SensorSpecification(40, 40, 180, 180, 220, 220));
 
-	for (int i = 0; i < 500; ++i)
+	for (int i = 0; i < preyCount; ++i)
 	{
 		FA::App::Instance().GetAgentFactory()->Create(p);
 	}
@@ -55,7 +64,7 @@ int main()
 	p.isPrey = false;
 	p.spec.SetChase(FA::SensorSpecification(240, 240, 90, 90, 1000, 1000));
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < predatorCount; i++)
 	{
 		FA::App::Instance().GetAgentFactory()->Create(p);
 	}
