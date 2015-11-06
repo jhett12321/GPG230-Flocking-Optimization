@@ -31,6 +31,7 @@ int main()
 	//add some place holder agents, preds and obs to demonstrate functionality
 
 	//TODO configurables
+	//General Agent Options
 	int agentCount = 500;
 	float predatorRatio = 0.1f;
 
@@ -38,6 +39,21 @@ int main()
 	int preyCount = agentCount - predatorCount;
 
 	//Prey Configurables
+	bool preyAvoidanceEnabled = true;
+
+	if (preyAvoidanceEnabled)
+	{
+		int preyAvoidanceMinRad = 25;
+		int preyAvoidanceMaxRad = 25;
+		int preyAvoidanceMinAng = 180;
+		int preyAvoidanceMaxAng = 180;
+		int preyAvoidanceMinInf = 80;
+		int preyAvoidanceMaxInf = 80;
+
+
+	}
+
+	
 
 #pragma region prey
 	FA::AgentFactory::Params p;
