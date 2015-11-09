@@ -1,12 +1,14 @@
 #ifndef FLOCKINGAGENTFACTORY_H
 #define FLOCKINGAGENTFACTORY_H
 
-//HACK: lazy include
+#include "Range.hpp"
 #include "FlockingAgentSpecification.hpp"
-#include "FlockingAgent.hpp"
+#include <Box2D/Dynamics/b2World.h>
 
 namespace FA
 {
+	class FlockingAgent;
+
 	/**
 		Factory for creating flocking agents, hides the mess required to wire everything together
 	*/
@@ -23,14 +25,17 @@ namespace FA
 			SensorArraySpecification spec;
 		};
 	public:
-		AgentFactory(b2World* w) :mPhysWorld(w){}
+		AgentFactory(b2World* w);
 		~AgentFactory(){}
 
 		//creates and configures a flocking agent from given spec
 		//	also adds to scene
-		FlockingAgent* Create(const Params& p)const;
+		FlockingAgent* Create(bool isPrey)const;
 
 		void Destroy(FlockingAgent*)const;
+
+		Params* mPreyParams;
+		Params* mPredParams;
 
 	private:
 		b2World* mPhysWorld;

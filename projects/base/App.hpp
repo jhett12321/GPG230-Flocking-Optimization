@@ -1,21 +1,14 @@
 #ifndef APP_H
 #define APP_H
 
-//HACK lazy includes
 #include <SFML\Graphics.hpp>
-#include <Box2D\Box2D.h>
 
-//#include "AgentCallbackListener.hpp"
-//#include "FlockingAgentFactory.hpp"
-//#include "ObstacleFactory.hpp"
 #include "Macros.hpp"
-//#include "Scene.hpp"
 
 namespace sf
 {
 	class Clock;
 }
-
 
 class b2World;
 
@@ -25,6 +18,7 @@ namespace FA
 	class ObstacleFactory;
 	class Scene;
 	class AgentContactListener;
+	class Config;
 
 	/**
 		App controls the window and how to set up the scene
@@ -40,13 +34,16 @@ namespace FA
 		void Run();
 
 		void PhysicsUpdate(float deltaT);
-		
-		void RenderUpdate(float deltaT, sf::Clock& frameRateClock);
+
+		void RenderUpdate(sf::Clock& frameRateClock);
 
 	protected:
 		RO_PTR_PROPERTY(sf::RenderWindow, Window);
 		RO_PTR_PROPERTY(sf::Clock, Clock);
+		RO_PTR_PROPERTY(FA::Config, Config);
 		RO_DATA_PROPERTY(bool, IsRunning);
+		RO_DATA_PROPERTY(bool, LockFrameRate);
+		RO_DATA_PROPERTY(int, LockFrameRateAmt);
 		RO_DATA_PROPERTY(bool, IsInit);
 		RO_PTR_PROPERTY(b2World, PhysWorld);
 		RO_PTR_PROPERTY(FA::AgentFactory, AgentFactory);

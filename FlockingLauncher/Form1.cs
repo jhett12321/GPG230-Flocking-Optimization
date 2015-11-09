@@ -1,8 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-
-using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 namespace FlockingLauncher
@@ -29,6 +29,31 @@ namespace FlockingLauncher
 
             //Create our Config Instance.
             config = new Config();
+
+            //Check if an existing config.json file exists, and load it.
+            try
+            {
+                // Load JSON from file.
+                using (StreamReader file = File.OpenText(@"config.json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+
+                    Config configImport = (Config)serializer.Deserialize(file, typeof(Config));
+
+                    ImportConfig(configImport);
+                    PrepareConfig();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                DialogResult res = MessageBox.Show("Could not find and load existing configuration. \n" + ex.Message + "\n Would you like to load defaults?", "Cannot load simulation config", MessageBoxButtons.YesNo);
+
+                if (res != DialogResult.Yes)
+                {
+                    MessageBox.Show("Cannot load configuration. \n Program will now exit.", "Cannot load simulation config", MessageBoxButtons.OK);
+                }
+            }
         }
 
         //Our Custom Functions.
@@ -52,10 +77,22 @@ namespace FlockingLauncher
         {
             PrepareConfig();
 
-            using (StreamWriter file = File.CreateText(@fileName))
+            try
             {
-               JsonSerializer serializer = new JsonSerializer();
-               serializer.Serialize(file, config);
+                using (StreamWriter file = File.CreateText(@fileName))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(file, config);
+                }
+            }
+            catch (Exception ex)
+            {
+                DialogResult res = MessageBox.Show("Could not save/export specified JSON File! \n Would you like to try another location?" + ex.Message, "Config Export Failed", MessageBoxButtons.YesNo);
+
+                if (res == DialogResult.Yes)
+                {
+                    exportButton_Click(null, null);
+                }
             }
         }
 
@@ -69,8 +106,6 @@ namespace FlockingLauncher
             // Prey Options
             config.preyMaxSpawnRad = Convert.ToSingle(preyMaxSpawnRad.Value);
             config.preyMinSpawnRad = Convert.ToSingle(preyMinSpawnRad.Value);
-            config.preySpawnPosY = Convert.ToInt32(preySpawnPosY.Value);
-            config.preySpawnPosX = Convert.ToInt32(preySpawnPosX.Value);
             config.preyMaxMass = Convert.ToSingle(preyMaxMass.Value);
             config.preyMinMass = Convert.ToSingle(preyMinMass.Value);
             config.preyMaxSize = Convert.ToSingle(preyMaxSize.Value);
@@ -83,8 +118,6 @@ namespace FlockingLauncher
             // Predator Options
             config.predMaxSpawnRad = Convert.ToSingle(predMaxSpawnRad.Value);
             config.predMinSpawnRad = Convert.ToSingle(predMinSpawnRad.Value);
-            config.predSpawnPosY = Convert.ToInt32(predSpawnPosX.Value);
-            config.predSpawnPosX = Convert.ToInt32(predSpawnPosX.Value);
             config.predMaxMass = Convert.ToSingle(predMaxMass.Value);
             config.predMinMass = Convert.ToSingle(predMinMass.Value);
             config.predMaxSize = Convert.ToSingle(predMaxSize.Value);
@@ -213,8 +246,6 @@ namespace FlockingLauncher
             // Prey Options
             preyMaxSpawnRad.Value = Convert.ToDecimal(config.preyMaxSpawnRad);
             preyMinSpawnRad.Value = Convert.ToDecimal(config.preyMinSpawnRad);
-            preySpawnPosY.Value = Convert.ToDecimal(config.preySpawnPosY);
-            preySpawnPosX.Value = Convert.ToDecimal(config.preySpawnPosX);
             preyMaxMass.Value = Convert.ToDecimal(config.preyMaxMass);
             preyMinMass.Value = Convert.ToDecimal(config.preyMinMass);
             preyMaxSize.Value = Convert.ToDecimal(config.preyMaxSize);
@@ -227,8 +258,6 @@ namespace FlockingLauncher
             // Predator Options
             predMaxSpawnRad.Value = Convert.ToDecimal(config.predMaxSpawnRad);
             predMinSpawnRad.Value = Convert.ToDecimal(config.predMinSpawnRad);
-            predSpawnPosX.Value = Convert.ToDecimal(config.predSpawnPosY);
-            predSpawnPosX.Value = Convert.ToDecimal(config.predSpawnPosX);
             predMaxMass.Value = Convert.ToDecimal(config.predMaxMass);
             predMinMass.Value = Convert.ToDecimal(config.predMinMass);
             predMaxSize.Value = Convert.ToDecimal(config.predMaxSize);
@@ -412,6 +441,23 @@ namespace FlockingLauncher
             }
 
             //dlg.Dispose();
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            Export("config.json");
+        }
+
+        private void startLocal_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            #if DEBUG
+            startInfo.FileName = "base_d.exe";
+            #else
+            startInfo.FileName = "base.exe";
+            #endif
+            startInfo.Arguments = "";
+            Process.Start(startInfo);
         }
 
         private void agentRatio_ValueChanged(object sender, EventArgs e)
@@ -725,24 +771,24 @@ namespace FlockingLauncher
         {
             if (rndSpawn.Checked)
             {
-                preySpawnPosX.Enabled = false;
-                preySpawnPosY.Enabled = false;
+                preyMaxSpawnRad.Enabled = false;
+                preyMinSpawnRad.Enabled = false;
 
-                predSpawnPosX.Enabled = false;
-                predSpawnPosY.Enabled = false;
+                predMaxSpawnRad.Enabled = false;
+                predMinSpawnRad.Enabled = false;
             }
 
             else
             {
-                preySpawnPosX.Enabled = true;
-                preySpawnPosY.Enabled = true;
+                preyMaxSpawnRad.Enabled = true;
+                preyMinSpawnRad.Enabled = true;
 
-                predSpawnPosX.Enabled = true;
-                predSpawnPosY.Enabled = true;
+                predMaxSpawnRad.Enabled = true;
+                predMinSpawnRad.Enabled = true;
             }
         }
 
-        private void clientConnectPort_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        private void clientConnectPort_Validating(object sender, CancelEventArgs e)
         {
             if (Utils.ValidatePort(clientConnectPort.Text))
             {
@@ -777,6 +823,5 @@ namespace FlockingLauncher
                 frameRateCapAmt.Enabled = false;
             }
         }
-
     }
 }

@@ -1,8 +1,6 @@
 #include "Scene.hpp"
-#include "packetformat.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Network.hpp>
 #include "App.hpp"
 
 FA::Scene::Scene()

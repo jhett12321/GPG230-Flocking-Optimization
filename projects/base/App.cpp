@@ -1,10 +1,13 @@
 #include "App.hpp"
+#include "Config.hpp"
 #include "Debug.hpp"
 #include "FlockingAgentFactory.hpp"
 #include "ObstacleFactory.hpp"
 #include "Scene.hpp"
-#include "Box2D\Box2D.h"
 #include "AgentCallbackListener.hpp"
+#include <fstream>
+#include <sstream>
+#include "CJsonSerializer.hpp"
 
 const std::string WINDOW_TITLE = "Flocking Agents - ";
 
@@ -18,6 +21,34 @@ bool FA::App::Init()
 {
 	if (mIsInit)
 		return true;
+
+	//Initialize and set up configuration instance.
+	mConfig = new FA::Config();
+
+	std::ifstream rawConfData("config.json");
+
+	std::string confData;
+	if (rawConfData.good())
+	{
+		std::stringstream buffer;
+
+		buffer << rawConfData.rdbuf();
+
+		confData = buffer.str();
+	}
+
+	else
+	{
+		confData = "{}";
+	}
+
+	rawConfData.close();
+
+	CJsonSerializer::Deserialize(mConfig, confData);
+
+	//Write Render options to member variables
+	mLockFrameRate = mConfig->frameRateLockEnabled;
+	mLockFrameRateAmt = 1000 / mConfig->frameRateCapAmt;
 
 	//create window, worlds, factories, etc.
 	mWindow = new sf::RenderWindow(sf::VideoMode(800, 800, 32), WINDOW_TITLE, sf::Style::Close);
@@ -44,6 +75,8 @@ void FA::App::Run()
 
 	sf::Clock frameRateClock;
 
+	float clientPhysInterval = mConfig->clientPhysInt;
+
 	while (mWindow->isOpen())
 	{
 		// Events are things such as keys being pressed, the window closing, etc.
@@ -62,9 +95,8 @@ void FA::App::Run()
 		}
 
 		// deltaT is the amount of time that has gone by since the last frame.
-		float deltaT = std::min(mClock->restart().asSeconds(), 0.1f);
-		PhysicsUpdate(0.01f);
-		RenderUpdate(deltaT, frameRateClock);
+		PhysicsUpdate(clientPhysInterval);
+		RenderUpdate(frameRateClock);
 	}
 }
 
@@ -77,10 +109,10 @@ void FA::App::PhysicsUpdate(float deltaT)
 	mPhysWorld->Step(deltaT, 6, 2);
 }
 
-void FA::App::RenderUpdate(float deltaT, sf::Clock& frameRateClock)
+void FA::App::RenderUpdate(sf::Clock& frameRateClock)
 {
-	//if (frameRateClock.getElapsedTime().asMilliseconds() % 16)
-	//{
+	if (!mLockFrameRate || (mLockFrameRate && frameRateClock.getElapsedTime().asMilliseconds() >= mLockFrameRateAmt))
+	{
 		// Clear the window.
 		mWindow->clear();
 
@@ -92,11 +124,11 @@ void FA::App::RenderUpdate(float deltaT, sf::Clock& frameRateClock)
 		// Calling display will make the contents of the window appear on screen (before this, it was kept hidden in the back buffer).
 		mWindow->display();
 
-		deltaT = roundf(1 / deltaT);
+		float deltaT = roundf(1 / frameRateClock.getElapsedTime().asSeconds());
 		int frames = deltaT;
 		mWindow->setTitle(WINDOW_TITLE + std::to_string(frames));
 		frameRateClock.restart();
-	//}
+	}
 }
 
 FA::App::~App()

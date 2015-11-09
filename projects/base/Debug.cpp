@@ -1,4 +1,5 @@
 #include "Debug.hpp"
+#include <SFML/Graphics.hpp>
 
 FA::Debug& FA::Debug::Instance()
 {
@@ -26,7 +27,7 @@ void FA::Debug::DrawAll(sf::RenderTarget& rt)
 		line[1].color = l.col;
 		rt.draw(line, 2, sf::Lines);
 	}
-	
+
 END:
 	mLines.clear();
 }

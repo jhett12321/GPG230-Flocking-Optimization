@@ -9,8 +9,6 @@
     #region Prey Options
     public float preyMaxSpawnRad;
     public float preyMinSpawnRad;
-    public int preySpawnPosY;
-    public int preySpawnPosX;
     public float preyMaxMass;
     public float preyMinMass;
     public float preyMaxSize;
@@ -24,8 +22,6 @@
     #region Predator Options
     public float predMaxSpawnRad;
     public float predMinSpawnRad;
-    public int predSpawnPosY;
-    public int predSpawnPosX;
     public float predMaxMass;
     public float predMinMass;
     public float predMaxSize;

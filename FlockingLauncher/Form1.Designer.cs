@@ -37,11 +37,6 @@
             this.labelPredSpawnRad = new System.Windows.Forms.Label();
             this.predMaxSpawnRad = new System.Windows.Forms.NumericUpDown();
             this.predMinSpawnRad = new System.Windows.Forms.NumericUpDown();
-            this.labelPredSpawnPos = new System.Windows.Forms.Label();
-            this.labelPredSpawnPosY = new System.Windows.Forms.Label();
-            this.predSpawnPosY = new System.Windows.Forms.NumericUpDown();
-            this.labelPredSpawnPosX = new System.Windows.Forms.Label();
-            this.predSpawnPosX = new System.Windows.Forms.NumericUpDown();
             this.labelPredMass = new System.Windows.Forms.Label();
             this.labelPredSize = new System.Windows.Forms.Label();
             this.labelPredStartVel = new System.Windows.Forms.Label();
@@ -61,11 +56,6 @@
             this.labelPreySpawnRad = new System.Windows.Forms.Label();
             this.preyMaxSpawnRad = new System.Windows.Forms.NumericUpDown();
             this.preyMinSpawnRad = new System.Windows.Forms.NumericUpDown();
-            this.labelPreySpawnPos = new System.Windows.Forms.Label();
-            this.labelPreySpawnPosY = new System.Windows.Forms.Label();
-            this.preySpawnPosY = new System.Windows.Forms.NumericUpDown();
-            this.labelPreySpawnPosX = new System.Windows.Forms.Label();
-            this.preySpawnPosX = new System.Windows.Forms.NumericUpDown();
             this.labelPreyMass = new System.Windows.Forms.Label();
             this.labelPreySize = new System.Windows.Forms.Label();
             this.labelPreyStartVel = new System.Windows.Forms.Label();
@@ -199,7 +189,14 @@
             this.labelClientPhysInt = new System.Windows.Forms.Label();
             this.labelClientPerf = new System.Windows.Forms.Label();
             this.serverOptions = new System.Windows.Forms.TabPage();
+            this.serverNetwork = new System.Windows.Forms.Panel();
+            this.serverPort = new System.Windows.Forms.TextBox();
+            this.labelServerPort = new System.Windows.Forms.Label();
+            this.labelServerNetwork = new System.Windows.Forms.Label();
             this.serverLimits = new System.Windows.Forms.Panel();
+            this.labelServerPhysIntSec = new System.Windows.Forms.Label();
+            this.serverPhysInt = new System.Windows.Forms.NumericUpDown();
+            this.labelServerPhysInt = new System.Windows.Forms.Label();
             this.serverMaxClients = new System.Windows.Forms.NumericUpDown();
             this.labelServerMaxClients = new System.Windows.Forms.Label();
             this.maxAgentsPerC = new System.Windows.Forms.NumericUpDown();
@@ -210,20 +207,11 @@
             this.startNetworkServer = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.exportButton = new System.Windows.Forms.Button();
-            this.labelServerNetwork = new System.Windows.Forms.Label();
-            this.labelServerPort = new System.Windows.Forms.Label();
-            this.serverNetwork = new System.Windows.Forms.Panel();
-            this.serverPort = new System.Windows.Forms.TextBox();
-            this.labelServerPhysInt = new System.Windows.Forms.Label();
-            this.serverPhysInt = new System.Windows.Forms.NumericUpDown();
-            this.labelServerPhysIntSec = new System.Windows.Forms.Label();
             this.optionTabs.SuspendLayout();
             this.agentOptions.SuspendLayout();
             this.predOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.predMaxSpawnRad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.predMinSpawnRad)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.predSpawnPosY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.predSpawnPosX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.predMaxMass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.predMinMass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.predMaxSize)).BeginInit();
@@ -235,8 +223,6 @@
             this.preyOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.preyMaxSpawnRad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.preyMinSpawnRad)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.preySpawnPosY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.preySpawnPosX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.preyMaxMass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.preyMinMass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.preyMaxSize)).BeginInit();
@@ -323,34 +309,37 @@
             ((System.ComponentModel.ISupportInitialize)(this.frameRateCapAmt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientPhysInt)).BeginInit();
             this.serverOptions.SuspendLayout();
+            this.serverNetwork.SuspendLayout();
             this.serverLimits.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.serverPhysInt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.serverMaxClients)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxAgentsPerC)).BeginInit();
-            this.serverNetwork.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.serverPhysInt)).BeginInit();
             this.SuspendLayout();
-            //
+            // 
             // saveButton
-            //
+            // 
             this.saveButton.Location = new System.Drawing.Point(12, 12);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(76, 24);
             this.saveButton.TabIndex = 0;
             this.saveButton.Text = "Save";
+            this.toolTip.SetToolTip(this.saveButton, "Save current settings to simulation");
             this.saveButton.UseVisualStyleBackColor = true;
-            //
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
             // importButton
-            //
+            // 
             this.importButton.Location = new System.Drawing.Point(94, 12);
             this.importButton.Name = "importButton";
             this.importButton.Size = new System.Drawing.Size(76, 24);
             this.importButton.TabIndex = 1;
             this.importButton.Text = "Import...";
+            this.toolTip.SetToolTip(this.importButton, "Import an existing config file");
             this.importButton.UseVisualStyleBackColor = true;
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
-            //
+            // 
             // optionTabs
-            //
+            // 
             this.optionTabs.Controls.Add(this.agentOptions);
             this.optionTabs.Controls.Add(this.agentBehaviours);
             this.optionTabs.Controls.Add(this.clientOptions);
@@ -360,9 +349,9 @@
             this.optionTabs.SelectedIndex = 0;
             this.optionTabs.Size = new System.Drawing.Size(759, 569);
             this.optionTabs.TabIndex = 2;
-            //
+            // 
             // agentOptions
-            //
+            // 
             this.agentOptions.AutoScroll = true;
             this.agentOptions.AutoScrollMargin = new System.Drawing.Size(0, 20);
             this.agentOptions.Controls.Add(this.predOptions);
@@ -378,19 +367,14 @@
             this.agentOptions.TabIndex = 1;
             this.agentOptions.Text = "Agent Options";
             this.agentOptions.UseVisualStyleBackColor = true;
-            //
+            // 
             // predOptions
-            //
+            // 
             this.predOptions.BackColor = System.Drawing.Color.Transparent;
             this.predOptions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.predOptions.Controls.Add(this.labelPredSpawnRad);
             this.predOptions.Controls.Add(this.predMaxSpawnRad);
             this.predOptions.Controls.Add(this.predMinSpawnRad);
-            this.predOptions.Controls.Add(this.labelPredSpawnPos);
-            this.predOptions.Controls.Add(this.labelPredSpawnPosY);
-            this.predOptions.Controls.Add(this.predSpawnPosY);
-            this.predOptions.Controls.Add(this.labelPredSpawnPosX);
-            this.predOptions.Controls.Add(this.predSpawnPosX);
             this.predOptions.Controls.Add(this.labelPredMass);
             this.predOptions.Controls.Add(this.labelPredSize);
             this.predOptions.Controls.Add(this.labelPredStartVel);
@@ -409,19 +393,18 @@
             this.predOptions.Name = "predOptions";
             this.predOptions.Size = new System.Drawing.Size(685, 214);
             this.predOptions.TabIndex = 55;
-            //
+            // 
             // labelPredSpawnRad
-            //
+            // 
             this.labelPredSpawnRad.AutoSize = true;
             this.labelPredSpawnRad.Location = new System.Drawing.Point(10, 32);
             this.labelPredSpawnRad.Name = "labelPredSpawnRad";
             this.labelPredSpawnRad.Size = new System.Drawing.Size(76, 13);
             this.labelPredSpawnRad.TabIndex = 53;
             this.labelPredSpawnRad.Text = "Spawn Radius";
-            this.toolTip.SetToolTip(this.labelPredSpawnRad, "Represents the ratio of predators and prey that the client will spawn.");
-            //
+            // 
             // predMaxSpawnRad
-            //
+            // 
             this.predMaxSpawnRad.BackColor = System.Drawing.SystemColors.Window;
             this.predMaxSpawnRad.DecimalPlaces = 2;
             this.predMaxSpawnRad.Increment = new decimal(new int[] {
@@ -443,9 +426,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predMinSpawnRad
-            //
+            // 
             this.predMinSpawnRad.BackColor = System.Drawing.SystemColors.Window;
             this.predMinSpawnRad.DecimalPlaces = 2;
             this.predMinSpawnRad.Increment = new decimal(new int[] {
@@ -462,120 +445,45 @@
             this.predMinSpawnRad.Name = "predMinSpawnRad";
             this.predMinSpawnRad.Size = new System.Drawing.Size(78, 20);
             this.predMinSpawnRad.TabIndex = 51;
-            //
-            // labelPredSpawnPos
-            //
-            this.labelPredSpawnPos.AutoSize = true;
-            this.labelPredSpawnPos.Location = new System.Drawing.Point(289, 32);
-            this.labelPredSpawnPos.Name = "labelPredSpawnPos";
-            this.labelPredSpawnPos.Size = new System.Drawing.Size(80, 13);
-            this.labelPredSpawnPos.TabIndex = 50;
-            this.labelPredSpawnPos.Text = "Spawn Position";
-            this.toolTip.SetToolTip(this.labelPredSpawnPos, "Represents the ratio of predators and prey that the client will spawn.");
-            //
-            // labelPredSpawnPosY
-            //
-            this.labelPredSpawnPosY.AutoSize = true;
-            this.labelPredSpawnPosY.Location = new System.Drawing.Point(484, 32);
-            this.labelPredSpawnPosY.Name = "labelPredSpawnPosY";
-            this.labelPredSpawnPosY.Size = new System.Drawing.Size(14, 13);
-            this.labelPredSpawnPosY.TabIndex = 48;
-            this.labelPredSpawnPosY.Text = "Y";
-            this.labelPredSpawnPosY.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            //
-            // predSpawnPosY
-            //
-            this.predSpawnPosY.BackColor = System.Drawing.SystemColors.Window;
-            this.predSpawnPosY.Location = new System.Drawing.Point(500, 30);
-            this.predSpawnPosY.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.predSpawnPosY.Name = "predSpawnPosY";
-            this.predSpawnPosY.Size = new System.Drawing.Size(78, 20);
-            this.predSpawnPosY.TabIndex = 49;
-            this.predSpawnPosY.ThousandsSeparator = true;
-            this.predSpawnPosY.Value = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            //
-            // labelPredSpawnPosX
-            //
-            this.labelPredSpawnPosX.AutoSize = true;
-            this.labelPredSpawnPosX.Location = new System.Drawing.Point(380, 32);
-            this.labelPredSpawnPosX.Name = "labelPredSpawnPosX";
-            this.labelPredSpawnPosX.Size = new System.Drawing.Size(14, 13);
-            this.labelPredSpawnPosX.TabIndex = 46;
-            this.labelPredSpawnPosX.Text = "X";
-            this.labelPredSpawnPosX.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolTip.SetToolTip(this.labelPredSpawnPosX, "Represents the amount of agents that the client will try to spawn. If running on " +
-        "network mode, the limits specified by the server will override this setting. (Se" +
-        "e Server Options)");
-            //
-            // predSpawnPosX
-            //
-            this.predSpawnPosX.BackColor = System.Drawing.SystemColors.Window;
-            this.predSpawnPosX.Location = new System.Drawing.Point(400, 30);
-            this.predSpawnPosX.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.predSpawnPosX.Name = "predSpawnPosX";
-            this.predSpawnPosX.Size = new System.Drawing.Size(78, 20);
-            this.predSpawnPosX.TabIndex = 47;
-            this.predSpawnPosX.ThousandsSeparator = true;
-            this.predSpawnPosX.Value = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            //
+            // 
             // labelPredMass
-            //
+            // 
             this.labelPredMass.AutoSize = true;
             this.labelPredMass.Location = new System.Drawing.Point(10, 172);
             this.labelPredMass.Name = "labelPredMass";
             this.labelPredMass.Size = new System.Drawing.Size(32, 13);
             this.labelPredMass.TabIndex = 45;
             this.labelPredMass.Text = "Mass";
-            this.toolTip.SetToolTip(this.labelPredMass, "Represents the ratio of predators and prey that the client will spawn.");
-            //
+            // 
             // labelPredSize
-            //
+            // 
             this.labelPredSize.AutoSize = true;
             this.labelPredSize.Location = new System.Drawing.Point(10, 137);
             this.labelPredSize.Name = "labelPredSize";
             this.labelPredSize.Size = new System.Drawing.Size(27, 13);
             this.labelPredSize.TabIndex = 44;
             this.labelPredSize.Text = "Size";
-            this.toolTip.SetToolTip(this.labelPredSize, "Represents the ratio of predators and prey that the client will spawn.");
-            //
+            // 
             // labelPredStartVel
-            //
+            // 
             this.labelPredStartVel.AutoSize = true;
             this.labelPredStartVel.Location = new System.Drawing.Point(10, 102);
             this.labelPredStartVel.Name = "labelPredStartVel";
             this.labelPredStartVel.Size = new System.Drawing.Size(69, 13);
             this.labelPredStartVel.TabIndex = 43;
             this.labelPredStartVel.Text = "Start Velocity";
-            this.toolTip.SetToolTip(this.labelPredStartVel, "Represents the ratio of predators and prey that the client will spawn.");
-            //
+            // 
             // labelPredAccel
-            //
+            // 
             this.labelPredAccel.AutoSize = true;
             this.labelPredAccel.Location = new System.Drawing.Point(10, 67);
             this.labelPredAccel.Name = "labelPredAccel";
             this.labelPredAccel.Size = new System.Drawing.Size(66, 13);
             this.labelPredAccel.TabIndex = 42;
             this.labelPredAccel.Text = "Acceleration";
-            this.toolTip.SetToolTip(this.labelPredAccel, "Represents the ratio of predators and prey that the client will spawn.");
-            //
+            // 
             // predMaxMass
-            //
+            // 
             this.predMaxMass.BackColor = System.Drawing.SystemColors.Window;
             this.predMaxMass.DecimalPlaces = 2;
             this.predMaxMass.Increment = new decimal(new int[] {
@@ -597,9 +505,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predMinMass
-            //
+            // 
             this.predMinMass.BackColor = System.Drawing.SystemColors.Window;
             this.predMinMass.DecimalPlaces = 2;
             this.predMinMass.Increment = new decimal(new int[] {
@@ -621,9 +529,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predMaxSize
-            //
+            // 
             this.predMaxSize.BackColor = System.Drawing.SystemColors.Window;
             this.predMaxSize.DecimalPlaces = 2;
             this.predMaxSize.Increment = new decimal(new int[] {
@@ -645,9 +553,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predMinSize
-            //
+            // 
             this.predMinSize.BackColor = System.Drawing.SystemColors.Window;
             this.predMinSize.DecimalPlaces = 2;
             this.predMinSize.Increment = new decimal(new int[] {
@@ -669,9 +577,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predMaxVel
-            //
+            // 
             this.predMaxVel.BackColor = System.Drawing.SystemColors.Window;
             this.predMaxVel.DecimalPlaces = 2;
             this.predMaxVel.Increment = new decimal(new int[] {
@@ -693,9 +601,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predMinVel
-            //
+            // 
             this.predMinVel.BackColor = System.Drawing.SystemColors.Window;
             this.predMinVel.DecimalPlaces = 2;
             this.predMinVel.Increment = new decimal(new int[] {
@@ -722,9 +630,9 @@
             0,
             0,
             -2147483648});
-            //
+            // 
             // labelPredOptMax
-            //
+            // 
             this.labelPredOptMax.AutoSize = true;
             this.labelPredOptMax.Location = new System.Drawing.Point(212, 8);
             this.labelPredOptMax.Name = "labelPredOptMax";
@@ -732,9 +640,9 @@
             this.labelPredOptMax.TabIndex = 8;
             this.labelPredOptMax.Text = "Max";
             this.labelPredOptMax.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            //
+            // 
             // predMaxAccel
-            //
+            // 
             this.predMaxAccel.BackColor = System.Drawing.SystemColors.Window;
             this.predMaxAccel.DecimalPlaces = 2;
             this.predMaxAccel.Increment = new decimal(new int[] {
@@ -756,9 +664,9 @@
             0,
             0,
             0});
-            //
+            // 
             // labelPredOptMin
-            //
+            // 
             this.labelPredOptMin.AutoSize = true;
             this.labelPredOptMin.Location = new System.Drawing.Point(115, 8);
             this.labelPredOptMin.Name = "labelPredOptMin";
@@ -766,12 +674,9 @@
             this.labelPredOptMin.TabIndex = 7;
             this.labelPredOptMin.Text = "Min";
             this.labelPredOptMin.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolTip.SetToolTip(this.labelPredOptMin, "Represents the amount of agents that the client will try to spawn. If running on " +
-        "network mode, the limits specified by the server will override this setting. (Se" +
-        "e Server Options)");
-            //
+            // 
             // predMinAccel
-            //
+            // 
             this.predMinAccel.BackColor = System.Drawing.SystemColors.Window;
             this.predMinAccel.DecimalPlaces = 2;
             this.predMinAccel.Increment = new decimal(new int[] {
@@ -793,9 +698,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predOptionsLabel
-            //
+            // 
             this.predOptionsLabel.AutoSize = true;
             this.predOptionsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.predOptionsLabel.Location = new System.Drawing.Point(17, 391);
@@ -803,19 +708,14 @@
             this.predOptionsLabel.Size = new System.Drawing.Size(52, 13);
             this.predOptionsLabel.TabIndex = 12;
             this.predOptionsLabel.Text = "Predators";
-            //
+            // 
             // preyOptions
-            //
+            // 
             this.preyOptions.BackColor = System.Drawing.Color.Transparent;
             this.preyOptions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.preyOptions.Controls.Add(this.labelPreySpawnRad);
             this.preyOptions.Controls.Add(this.preyMaxSpawnRad);
             this.preyOptions.Controls.Add(this.preyMinSpawnRad);
-            this.preyOptions.Controls.Add(this.labelPreySpawnPos);
-            this.preyOptions.Controls.Add(this.labelPreySpawnPosY);
-            this.preyOptions.Controls.Add(this.preySpawnPosY);
-            this.preyOptions.Controls.Add(this.labelPreySpawnPosX);
-            this.preyOptions.Controls.Add(this.preySpawnPosX);
             this.preyOptions.Controls.Add(this.labelPreyMass);
             this.preyOptions.Controls.Add(this.labelPreySize);
             this.preyOptions.Controls.Add(this.labelPreyStartVel);
@@ -834,19 +734,18 @@
             this.preyOptions.Name = "preyOptions";
             this.preyOptions.Size = new System.Drawing.Size(685, 214);
             this.preyOptions.TabIndex = 11;
-            //
+            // 
             // labelPreySpawnRad
-            //
+            // 
             this.labelPreySpawnRad.AutoSize = true;
             this.labelPreySpawnRad.Location = new System.Drawing.Point(10, 32);
             this.labelPreySpawnRad.Name = "labelPreySpawnRad";
             this.labelPreySpawnRad.Size = new System.Drawing.Size(76, 13);
             this.labelPreySpawnRad.TabIndex = 53;
             this.labelPreySpawnRad.Text = "Spawn Radius";
-            this.toolTip.SetToolTip(this.labelPreySpawnRad, "Represents the ratio of predators and prey that the client will spawn.");
-            //
+            // 
             // preyMaxSpawnRad
-            //
+            // 
             this.preyMaxSpawnRad.BackColor = System.Drawing.SystemColors.Window;
             this.preyMaxSpawnRad.DecimalPlaces = 2;
             this.preyMaxSpawnRad.Increment = new decimal(new int[] {
@@ -868,9 +767,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyMinSpawnRad
-            //
+            // 
             this.preyMinSpawnRad.BackColor = System.Drawing.SystemColors.Window;
             this.preyMinSpawnRad.DecimalPlaces = 2;
             this.preyMinSpawnRad.Increment = new decimal(new int[] {
@@ -887,120 +786,45 @@
             this.preyMinSpawnRad.Name = "preyMinSpawnRad";
             this.preyMinSpawnRad.Size = new System.Drawing.Size(78, 20);
             this.preyMinSpawnRad.TabIndex = 51;
-            //
-            // labelPreySpawnPos
-            //
-            this.labelPreySpawnPos.AutoSize = true;
-            this.labelPreySpawnPos.Location = new System.Drawing.Point(289, 32);
-            this.labelPreySpawnPos.Name = "labelPreySpawnPos";
-            this.labelPreySpawnPos.Size = new System.Drawing.Size(80, 13);
-            this.labelPreySpawnPos.TabIndex = 50;
-            this.labelPreySpawnPos.Text = "Spawn Position";
-            this.toolTip.SetToolTip(this.labelPreySpawnPos, "Represents the ratio of predators and prey that the client will spawn.");
-            //
-            // labelPreySpawnPosY
-            //
-            this.labelPreySpawnPosY.AutoSize = true;
-            this.labelPreySpawnPosY.Location = new System.Drawing.Point(484, 32);
-            this.labelPreySpawnPosY.Name = "labelPreySpawnPosY";
-            this.labelPreySpawnPosY.Size = new System.Drawing.Size(14, 13);
-            this.labelPreySpawnPosY.TabIndex = 48;
-            this.labelPreySpawnPosY.Text = "Y";
-            this.labelPreySpawnPosY.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            //
-            // preySpawnPosY
-            //
-            this.preySpawnPosY.BackColor = System.Drawing.SystemColors.Window;
-            this.preySpawnPosY.Location = new System.Drawing.Point(500, 30);
-            this.preySpawnPosY.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.preySpawnPosY.Name = "preySpawnPosY";
-            this.preySpawnPosY.Size = new System.Drawing.Size(78, 20);
-            this.preySpawnPosY.TabIndex = 49;
-            this.preySpawnPosY.ThousandsSeparator = true;
-            this.preySpawnPosY.Value = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            //
-            // labelPreySpawnPosX
-            //
-            this.labelPreySpawnPosX.AutoSize = true;
-            this.labelPreySpawnPosX.Location = new System.Drawing.Point(380, 32);
-            this.labelPreySpawnPosX.Name = "labelPreySpawnPosX";
-            this.labelPreySpawnPosX.Size = new System.Drawing.Size(14, 13);
-            this.labelPreySpawnPosX.TabIndex = 46;
-            this.labelPreySpawnPosX.Text = "X";
-            this.labelPreySpawnPosX.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolTip.SetToolTip(this.labelPreySpawnPosX, "Represents the amount of agents that the client will try to spawn. If running on " +
-        "network mode, the limits specified by the server will override this setting. (Se" +
-        "e Server Options)");
-            //
-            // preySpawnPosX
-            //
-            this.preySpawnPosX.BackColor = System.Drawing.SystemColors.Window;
-            this.preySpawnPosX.Location = new System.Drawing.Point(400, 30);
-            this.preySpawnPosX.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.preySpawnPosX.Name = "preySpawnPosX";
-            this.preySpawnPosX.Size = new System.Drawing.Size(78, 20);
-            this.preySpawnPosX.TabIndex = 47;
-            this.preySpawnPosX.ThousandsSeparator = true;
-            this.preySpawnPosX.Value = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            //
+            // 
             // labelPreyMass
-            //
+            // 
             this.labelPreyMass.AutoSize = true;
             this.labelPreyMass.Location = new System.Drawing.Point(10, 172);
             this.labelPreyMass.Name = "labelPreyMass";
             this.labelPreyMass.Size = new System.Drawing.Size(32, 13);
             this.labelPreyMass.TabIndex = 45;
             this.labelPreyMass.Text = "Mass";
-            this.toolTip.SetToolTip(this.labelPreyMass, "Represents the ratio of predators and prey that the client will spawn.");
-            //
+            // 
             // labelPreySize
-            //
+            // 
             this.labelPreySize.AutoSize = true;
             this.labelPreySize.Location = new System.Drawing.Point(10, 137);
             this.labelPreySize.Name = "labelPreySize";
             this.labelPreySize.Size = new System.Drawing.Size(27, 13);
             this.labelPreySize.TabIndex = 44;
             this.labelPreySize.Text = "Size";
-            this.toolTip.SetToolTip(this.labelPreySize, "Represents the ratio of predators and prey that the client will spawn.");
-            //
+            // 
             // labelPreyStartVel
-            //
+            // 
             this.labelPreyStartVel.AutoSize = true;
             this.labelPreyStartVel.Location = new System.Drawing.Point(10, 102);
             this.labelPreyStartVel.Name = "labelPreyStartVel";
             this.labelPreyStartVel.Size = new System.Drawing.Size(69, 13);
             this.labelPreyStartVel.TabIndex = 43;
             this.labelPreyStartVel.Text = "Start Velocity";
-            this.toolTip.SetToolTip(this.labelPreyStartVel, "Represents the ratio of predators and prey that the client will spawn.");
-            //
+            // 
             // labelPreyAccel
-            //
+            // 
             this.labelPreyAccel.AutoSize = true;
             this.labelPreyAccel.Location = new System.Drawing.Point(10, 67);
             this.labelPreyAccel.Name = "labelPreyAccel";
             this.labelPreyAccel.Size = new System.Drawing.Size(66, 13);
             this.labelPreyAccel.TabIndex = 42;
             this.labelPreyAccel.Text = "Acceleration";
-            this.toolTip.SetToolTip(this.labelPreyAccel, "Represents the ratio of predators and prey that the client will spawn.");
-            //
+            // 
             // preyMaxMass
-            //
+            // 
             this.preyMaxMass.BackColor = System.Drawing.SystemColors.Window;
             this.preyMaxMass.DecimalPlaces = 2;
             this.preyMaxMass.Increment = new decimal(new int[] {
@@ -1022,9 +846,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyMinMass
-            //
+            // 
             this.preyMinMass.BackColor = System.Drawing.SystemColors.Window;
             this.preyMinMass.DecimalPlaces = 2;
             this.preyMinMass.Increment = new decimal(new int[] {
@@ -1046,9 +870,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyMaxSize
-            //
+            // 
             this.preyMaxSize.BackColor = System.Drawing.SystemColors.Window;
             this.preyMaxSize.DecimalPlaces = 2;
             this.preyMaxSize.Increment = new decimal(new int[] {
@@ -1070,9 +894,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyMinSize
-            //
+            // 
             this.preyMinSize.BackColor = System.Drawing.SystemColors.Window;
             this.preyMinSize.DecimalPlaces = 2;
             this.preyMinSize.Increment = new decimal(new int[] {
@@ -1094,9 +918,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyMaxStartVel
-            //
+            // 
             this.preyMaxStartVel.BackColor = System.Drawing.SystemColors.Window;
             this.preyMaxStartVel.DecimalPlaces = 2;
             this.preyMaxStartVel.Increment = new decimal(new int[] {
@@ -1118,9 +942,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyMinStartVel
-            //
+            // 
             this.preyMinStartVel.BackColor = System.Drawing.SystemColors.Window;
             this.preyMinStartVel.DecimalPlaces = 2;
             this.preyMinStartVel.Increment = new decimal(new int[] {
@@ -1147,9 +971,9 @@
             0,
             0,
             -2147483648});
-            //
+            // 
             // labelPreyOptMax
-            //
+            // 
             this.labelPreyOptMax.AutoSize = true;
             this.labelPreyOptMax.Location = new System.Drawing.Point(212, 8);
             this.labelPreyOptMax.Name = "labelPreyOptMax";
@@ -1157,9 +981,9 @@
             this.labelPreyOptMax.TabIndex = 8;
             this.labelPreyOptMax.Text = "Max";
             this.labelPreyOptMax.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            //
+            // 
             // preyMaxAccel
-            //
+            // 
             this.preyMaxAccel.BackColor = System.Drawing.SystemColors.Window;
             this.preyMaxAccel.DecimalPlaces = 2;
             this.preyMaxAccel.Increment = new decimal(new int[] {
@@ -1181,9 +1005,9 @@
             0,
             0,
             0});
-            //
+            // 
             // labelPreyOptMin
-            //
+            // 
             this.labelPreyOptMin.AutoSize = true;
             this.labelPreyOptMin.Location = new System.Drawing.Point(115, 8);
             this.labelPreyOptMin.Name = "labelPreyOptMin";
@@ -1191,12 +1015,9 @@
             this.labelPreyOptMin.TabIndex = 7;
             this.labelPreyOptMin.Text = "Min";
             this.labelPreyOptMin.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolTip.SetToolTip(this.labelPreyOptMin, "Represents the amount of agents that the client will try to spawn. If running on " +
-        "network mode, the limits specified by the server will override this setting. (Se" +
-        "e Server Options)");
-            //
+            // 
             // preyMinAccel
-            //
+            // 
             this.preyMinAccel.BackColor = System.Drawing.SystemColors.Window;
             this.preyMinAccel.DecimalPlaces = 2;
             this.preyMinAccel.Increment = new decimal(new int[] {
@@ -1218,9 +1039,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyOptionsLabel
-            //
+            // 
             this.preyOptionsLabel.AutoSize = true;
             this.preyOptionsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.preyOptionsLabel.Location = new System.Drawing.Point(17, 155);
@@ -1228,9 +1049,9 @@
             this.preyOptionsLabel.Size = new System.Drawing.Size(28, 13);
             this.preyOptionsLabel.TabIndex = 7;
             this.preyOptionsLabel.Text = "Prey";
-            //
+            // 
             // generalAgentOptions
-            //
+            // 
             this.generalAgentOptions.BackColor = System.Drawing.Color.Transparent;
             this.generalAgentOptions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.generalAgentOptions.Controls.Add(this.rndSpawn);
@@ -1243,9 +1064,9 @@
             this.generalAgentOptions.Name = "generalAgentOptions";
             this.generalAgentOptions.Size = new System.Drawing.Size(685, 118);
             this.generalAgentOptions.TabIndex = 5;
-            //
+            // 
             // rndSpawn
-            //
+            // 
             this.rndSpawn.AutoSize = true;
             this.rndSpawn.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.rndSpawn.Location = new System.Drawing.Point(9, 80);
@@ -1256,18 +1077,18 @@
             this.toolTip.SetToolTip(this.rndSpawn, "Spawns Agents at a random position in the world.");
             this.rndSpawn.UseVisualStyleBackColor = true;
             this.rndSpawn.CheckedChanged += new System.EventHandler(this.checkBoxRndSpawn_CheckedChanged);
-            //
+            // 
             // agentRatioValue
-            //
+            // 
             this.agentRatioValue.AutoSize = true;
             this.agentRatioValue.Location = new System.Drawing.Point(213, 10);
             this.agentRatioValue.Name = "agentRatioValue";
             this.agentRatioValue.Size = new System.Drawing.Size(85, 13);
             this.agentRatioValue.TabIndex = 5;
             this.agentRatioValue.Text = "UNINITIALIZED";
-            //
+            // 
             // labelAgentRatio
-            //
+            // 
             this.labelAgentRatio.AutoSize = true;
             this.labelAgentRatio.Location = new System.Drawing.Point(10, 45);
             this.labelAgentRatio.Name = "labelAgentRatio";
@@ -1275,9 +1096,9 @@
             this.labelAgentRatio.TabIndex = 4;
             this.labelAgentRatio.Text = "Agent Ratio";
             this.toolTip.SetToolTip(this.labelAgentRatio, "Represents the ratio of predators and prey that the client will spawn.");
-            //
+            // 
             // totalAgents
-            //
+            // 
             this.totalAgents.BackColor = System.Drawing.SystemColors.Window;
             this.totalAgents.Location = new System.Drawing.Point(87, 8);
             this.totalAgents.Maximum = new decimal(new int[] {
@@ -1294,15 +1115,18 @@
             this.totalAgents.Size = new System.Drawing.Size(120, 20);
             this.totalAgents.TabIndex = 3;
             this.totalAgents.ThousandsSeparator = true;
+            this.toolTip.SetToolTip(this.totalAgents, "Represents the amount of agents that the client will try to spawn. If running on " +
+        "network mode, the limits specified by the server will override this setting. (Se" +
+        "e Server Options)");
             this.totalAgents.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
             this.totalAgents.ValueChanged += new System.EventHandler(this.totalAgents_ValueChanged);
-            //
+            // 
             // labelTotalAgents
-            //
+            // 
             this.labelTotalAgents.AutoSize = true;
             this.labelTotalAgents.Location = new System.Drawing.Point(10, 10);
             this.labelTotalAgents.Name = "labelTotalAgents";
@@ -1312,9 +1136,9 @@
             this.toolTip.SetToolTip(this.labelTotalAgents, "Represents the amount of agents that the client will try to spawn. If running on " +
         "network mode, the limits specified by the server will override this setting. (Se" +
         "e Server Options)");
-            //
+            // 
             // agentRatio
-            //
+            // 
             this.agentRatio.AutoSize = false;
             this.agentRatio.BackColor = System.Drawing.SystemColors.Window;
             this.agentRatio.Location = new System.Drawing.Point(79, 43);
@@ -1322,11 +1146,12 @@
             this.agentRatio.Name = "agentRatio";
             this.agentRatio.Size = new System.Drawing.Size(600, 29);
             this.agentRatio.TabIndex = 1;
+            this.toolTip.SetToolTip(this.agentRatio, "Represents the ratio of predators and prey that the client will spawn.");
             this.agentRatio.Value = 3;
             this.agentRatio.ValueChanged += new System.EventHandler(this.agentRatio_ValueChanged);
-            //
+            // 
             // generalAgentOptionsLabel
-            //
+            // 
             this.generalAgentOptionsLabel.AutoSize = true;
             this.generalAgentOptionsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.generalAgentOptionsLabel.Location = new System.Drawing.Point(17, 15);
@@ -1334,9 +1159,9 @@
             this.generalAgentOptionsLabel.Size = new System.Drawing.Size(114, 13);
             this.generalAgentOptionsLabel.TabIndex = 4;
             this.generalAgentOptionsLabel.Text = "General Agent Options";
-            //
+            // 
             // agentBehaviours
-            //
+            // 
             this.agentBehaviours.Controls.Add(this.predBehaviour);
             this.agentBehaviours.Controls.Add(this.predBehaviourLabel);
             this.agentBehaviours.Controls.Add(this.preyBehaviour);
@@ -1347,9 +1172,9 @@
             this.agentBehaviours.TabIndex = 3;
             this.agentBehaviours.Text = "Agent Behaviours";
             this.agentBehaviours.UseVisualStyleBackColor = true;
-            //
+            // 
             // predBehaviour
-            //
+            // 
             this.predBehaviour.BackColor = System.Drawing.Color.Transparent;
             this.predBehaviour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.predBehaviour.Controls.Add(this.predChaseMaxInf);
@@ -1404,9 +1229,9 @@
             this.predBehaviour.Name = "predBehaviour";
             this.predBehaviour.Size = new System.Drawing.Size(718, 243);
             this.predBehaviour.TabIndex = 11;
-            //
+            // 
             // predChaseMaxInf
-            //
+            // 
             this.predChaseMaxInf.BackColor = System.Drawing.SystemColors.Window;
             this.predChaseMaxInf.DecimalPlaces = 2;
             this.predChaseMaxInf.Increment = new decimal(new int[] {
@@ -1429,9 +1254,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predChaseMinInf
-            //
+            // 
             this.predChaseMinInf.BackColor = System.Drawing.SystemColors.Window;
             this.predChaseMinInf.DecimalPlaces = 2;
             this.predChaseMinInf.Increment = new decimal(new int[] {
@@ -1454,9 +1279,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predChaseMaxAng
-            //
+            // 
             this.predChaseMaxAng.BackColor = System.Drawing.SystemColors.Window;
             this.predChaseMaxAng.DecimalPlaces = 2;
             this.predChaseMaxAng.Increment = new decimal(new int[] {
@@ -1479,9 +1304,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predChaseMinAng
-            //
+            // 
             this.predChaseMinAng.BackColor = System.Drawing.SystemColors.Window;
             this.predChaseMinAng.DecimalPlaces = 2;
             this.predChaseMinAng.Increment = new decimal(new int[] {
@@ -1504,9 +1329,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predChaseMaxRad
-            //
+            // 
             this.predChaseMaxRad.BackColor = System.Drawing.SystemColors.Window;
             this.predChaseMaxRad.DecimalPlaces = 2;
             this.predChaseMaxRad.Increment = new decimal(new int[] {
@@ -1529,9 +1354,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predChaseMinRad
-            //
+            // 
             this.predChaseMinRad.BackColor = System.Drawing.SystemColors.Window;
             this.predChaseMinRad.DecimalPlaces = 2;
             this.predChaseMinRad.Increment = new decimal(new int[] {
@@ -1554,9 +1379,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predChaseEnabled
-            //
+            // 
             this.predChaseEnabled.AutoSize = true;
             this.predChaseEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.predChaseEnabled.Checked = true;
@@ -1568,9 +1393,9 @@
             this.predChaseEnabled.Text = "Chase";
             this.predChaseEnabled.UseVisualStyleBackColor = true;
             this.predChaseEnabled.CheckedChanged += new System.EventHandler(this.predChaseEnabled_CheckedChanged);
-            //
+            // 
             // predFleeMaxInf
-            //
+            // 
             this.predFleeMaxInf.BackColor = System.Drawing.SystemColors.Window;
             this.predFleeMaxInf.DecimalPlaces = 2;
             this.predFleeMaxInf.Increment = new decimal(new int[] {
@@ -1593,9 +1418,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predFleeMinInf
-            //
+            // 
             this.predFleeMinInf.BackColor = System.Drawing.SystemColors.Window;
             this.predFleeMinInf.DecimalPlaces = 2;
             this.predFleeMinInf.Increment = new decimal(new int[] {
@@ -1618,9 +1443,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predFleeMaxAng
-            //
+            // 
             this.predFleeMaxAng.BackColor = System.Drawing.SystemColors.Window;
             this.predFleeMaxAng.DecimalPlaces = 2;
             this.predFleeMaxAng.Increment = new decimal(new int[] {
@@ -1643,9 +1468,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predFleeMinAng
-            //
+            // 
             this.predFleeMinAng.BackColor = System.Drawing.SystemColors.Window;
             this.predFleeMinAng.DecimalPlaces = 2;
             this.predFleeMinAng.Increment = new decimal(new int[] {
@@ -1668,9 +1493,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predFleeMaxRad
-            //
+            // 
             this.predFleeMaxRad.BackColor = System.Drawing.SystemColors.Window;
             this.predFleeMaxRad.DecimalPlaces = 2;
             this.predFleeMaxRad.Increment = new decimal(new int[] {
@@ -1693,9 +1518,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predFleeMinRad
-            //
+            // 
             this.predFleeMinRad.BackColor = System.Drawing.SystemColors.Window;
             this.predFleeMinRad.DecimalPlaces = 2;
             this.predFleeMinRad.Increment = new decimal(new int[] {
@@ -1718,9 +1543,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predFleeEnabled
-            //
+            // 
             this.predFleeEnabled.AutoSize = true;
             this.predFleeEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.predFleeEnabled.Checked = true;
@@ -1732,9 +1557,9 @@
             this.predFleeEnabled.Text = "Flee";
             this.predFleeEnabled.UseVisualStyleBackColor = true;
             this.predFleeEnabled.CheckedChanged += new System.EventHandler(this.predFleeEnabled_CheckedChanged);
-            //
+            // 
             // predSpeedMaxInf
-            //
+            // 
             this.predSpeedMaxInf.BackColor = System.Drawing.SystemColors.Window;
             this.predSpeedMaxInf.DecimalPlaces = 2;
             this.predSpeedMaxInf.Increment = new decimal(new int[] {
@@ -1757,9 +1582,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predSpeedMinInf
-            //
+            // 
             this.predSpeedMinInf.BackColor = System.Drawing.SystemColors.Window;
             this.predSpeedMinInf.DecimalPlaces = 2;
             this.predSpeedMinInf.Increment = new decimal(new int[] {
@@ -1782,9 +1607,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predSpeedMaxAng
-            //
+            // 
             this.predSpeedMaxAng.BackColor = System.Drawing.SystemColors.Window;
             this.predSpeedMaxAng.DecimalPlaces = 2;
             this.predSpeedMaxAng.Increment = new decimal(new int[] {
@@ -1807,9 +1632,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predSpeedMinAng
-            //
+            // 
             this.predSpeedMinAng.BackColor = System.Drawing.SystemColors.Window;
             this.predSpeedMinAng.DecimalPlaces = 2;
             this.predSpeedMinAng.Increment = new decimal(new int[] {
@@ -1832,9 +1657,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predSpeedMaxRad
-            //
+            // 
             this.predSpeedMaxRad.BackColor = System.Drawing.SystemColors.Window;
             this.predSpeedMaxRad.DecimalPlaces = 2;
             this.predSpeedMaxRad.Increment = new decimal(new int[] {
@@ -1857,9 +1682,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predSpeedMinRad
-            //
+            // 
             this.predSpeedMinRad.BackColor = System.Drawing.SystemColors.Window;
             this.predSpeedMinRad.DecimalPlaces = 2;
             this.predSpeedMinRad.Increment = new decimal(new int[] {
@@ -1882,9 +1707,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predSpeedEnabled
-            //
+            // 
             this.predSpeedEnabled.AutoSize = true;
             this.predSpeedEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.predSpeedEnabled.Checked = true;
@@ -1896,9 +1721,9 @@
             this.predSpeedEnabled.Text = "Speed";
             this.predSpeedEnabled.UseVisualStyleBackColor = true;
             this.predSpeedEnabled.CheckedChanged += new System.EventHandler(this.predSpeedEnabled_CheckedChanged);
-            //
+            // 
             // predHeadingMaxInf
-            //
+            // 
             this.predHeadingMaxInf.BackColor = System.Drawing.SystemColors.Window;
             this.predHeadingMaxInf.DecimalPlaces = 2;
             this.predHeadingMaxInf.Increment = new decimal(new int[] {
@@ -1921,9 +1746,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predHeadingMinInf
-            //
+            // 
             this.predHeadingMinInf.BackColor = System.Drawing.SystemColors.Window;
             this.predHeadingMinInf.DecimalPlaces = 2;
             this.predHeadingMinInf.Increment = new decimal(new int[] {
@@ -1946,9 +1771,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predHeadingMaxAng
-            //
+            // 
             this.predHeadingMaxAng.BackColor = System.Drawing.SystemColors.Window;
             this.predHeadingMaxAng.DecimalPlaces = 2;
             this.predHeadingMaxAng.Increment = new decimal(new int[] {
@@ -1971,9 +1796,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predHeadingMinAng
-            //
+            // 
             this.predHeadingMinAng.BackColor = System.Drawing.SystemColors.Window;
             this.predHeadingMinAng.DecimalPlaces = 2;
             this.predHeadingMinAng.Increment = new decimal(new int[] {
@@ -1996,9 +1821,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predHeadingMaxRad
-            //
+            // 
             this.predHeadingMaxRad.BackColor = System.Drawing.SystemColors.Window;
             this.predHeadingMaxRad.DecimalPlaces = 2;
             this.predHeadingMaxRad.Increment = new decimal(new int[] {
@@ -2021,9 +1846,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predHeadingMinRad
-            //
+            // 
             this.predHeadingMinRad.BackColor = System.Drawing.SystemColors.Window;
             this.predHeadingMinRad.DecimalPlaces = 2;
             this.predHeadingMinRad.Increment = new decimal(new int[] {
@@ -2046,9 +1871,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predHeadingEnabled
-            //
+            // 
             this.predHeadingEnabled.AutoSize = true;
             this.predHeadingEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.predHeadingEnabled.Checked = true;
@@ -2060,9 +1885,9 @@
             this.predHeadingEnabled.Text = "Heading";
             this.predHeadingEnabled.UseVisualStyleBackColor = true;
             this.predHeadingEnabled.CheckedChanged += new System.EventHandler(this.predHeadingEnabled_CheckedChanged);
-            //
+            // 
             // predGroupingMaxInf
-            //
+            // 
             this.predGroupingMaxInf.BackColor = System.Drawing.SystemColors.Window;
             this.predGroupingMaxInf.DecimalPlaces = 2;
             this.predGroupingMaxInf.Increment = new decimal(new int[] {
@@ -2085,9 +1910,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predGroupingMinInf
-            //
+            // 
             this.predGroupingMinInf.BackColor = System.Drawing.SystemColors.Window;
             this.predGroupingMinInf.DecimalPlaces = 2;
             this.predGroupingMinInf.Increment = new decimal(new int[] {
@@ -2110,9 +1935,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predGroupingMaxAng
-            //
+            // 
             this.predGroupingMaxAng.BackColor = System.Drawing.SystemColors.Window;
             this.predGroupingMaxAng.DecimalPlaces = 2;
             this.predGroupingMaxAng.Increment = new decimal(new int[] {
@@ -2135,9 +1960,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predGroupingMinAng
-            //
+            // 
             this.predGroupingMinAng.BackColor = System.Drawing.SystemColors.Window;
             this.predGroupingMinAng.DecimalPlaces = 2;
             this.predGroupingMinAng.Increment = new decimal(new int[] {
@@ -2160,9 +1985,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predGroupingMaxRad
-            //
+            // 
             this.predGroupingMaxRad.BackColor = System.Drawing.SystemColors.Window;
             this.predGroupingMaxRad.DecimalPlaces = 2;
             this.predGroupingMaxRad.Increment = new decimal(new int[] {
@@ -2185,9 +2010,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predGroupingMinRad
-            //
+            // 
             this.predGroupingMinRad.BackColor = System.Drawing.SystemColors.Window;
             this.predGroupingMinRad.DecimalPlaces = 2;
             this.predGroupingMinRad.Increment = new decimal(new int[] {
@@ -2210,9 +2035,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predGroupingEnabled
-            //
+            // 
             this.predGroupingEnabled.AutoSize = true;
             this.predGroupingEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.predGroupingEnabled.Checked = true;
@@ -2224,9 +2049,9 @@
             this.predGroupingEnabled.Text = "Grouping";
             this.predGroupingEnabled.UseVisualStyleBackColor = true;
             this.predGroupingEnabled.CheckedChanged += new System.EventHandler(this.predGroupingEnabled_CheckedChanged);
-            //
+            // 
             // labelPredMaxInf
-            //
+            // 
             this.labelPredMaxInf.AutoSize = true;
             this.labelPredMaxInf.Location = new System.Drawing.Point(620, 8);
             this.labelPredMaxInf.Name = "labelPredMaxInf";
@@ -2234,9 +2059,9 @@
             this.labelPredMaxInf.TabIndex = 16;
             this.labelPredMaxInf.Text = "Max Influence";
             this.labelPredMaxInf.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            //
+            // 
             // predAvoidanceMaxInf
-            //
+            // 
             this.predAvoidanceMaxInf.BackColor = System.Drawing.SystemColors.Window;
             this.predAvoidanceMaxInf.DecimalPlaces = 2;
             this.predAvoidanceMaxInf.Increment = new decimal(new int[] {
@@ -2259,9 +2084,9 @@
             0,
             0,
             0});
-            //
+            // 
             // labelPredMinInf
-            //
+            // 
             this.labelPredMinInf.AutoSize = true;
             this.labelPredMinInf.Location = new System.Drawing.Point(522, 8);
             this.labelPredMinInf.Name = "labelPredMinInf";
@@ -2269,12 +2094,9 @@
             this.labelPredMinInf.TabIndex = 14;
             this.labelPredMinInf.Text = "Min Influence";
             this.labelPredMinInf.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolTip.SetToolTip(this.labelPredMinInf, "Represents the amount of agents that the client will try to spawn. If running on " +
-        "network mode, the limits specified by the server will override this setting. (Se" +
-        "e Server Options)");
-            //
+            // 
             // predAvoidanceMinInf
-            //
+            // 
             this.predAvoidanceMinInf.BackColor = System.Drawing.SystemColors.Window;
             this.predAvoidanceMinInf.DecimalPlaces = 2;
             this.predAvoidanceMinInf.Increment = new decimal(new int[] {
@@ -2297,9 +2119,9 @@
             0,
             0,
             0});
-            //
+            // 
             // labelPredMaxAng
-            //
+            // 
             this.labelPredMaxAng.AutoSize = true;
             this.labelPredMaxAng.Location = new System.Drawing.Point(427, 8);
             this.labelPredMaxAng.Name = "labelPredMaxAng";
@@ -2307,9 +2129,9 @@
             this.labelPredMaxAng.TabIndex = 12;
             this.labelPredMaxAng.Text = "Max Angle";
             this.labelPredMaxAng.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            //
+            // 
             // predAvoidanceMaxAng
-            //
+            // 
             this.predAvoidanceMaxAng.BackColor = System.Drawing.SystemColors.Window;
             this.predAvoidanceMaxAng.DecimalPlaces = 2;
             this.predAvoidanceMaxAng.Increment = new decimal(new int[] {
@@ -2332,9 +2154,9 @@
             0,
             0,
             0});
-            //
+            // 
             // labelPredMinAng
-            //
+            // 
             this.labelPredMinAng.AutoSize = true;
             this.labelPredMinAng.Location = new System.Drawing.Point(329, 8);
             this.labelPredMinAng.Name = "labelPredMinAng";
@@ -2342,12 +2164,9 @@
             this.labelPredMinAng.TabIndex = 10;
             this.labelPredMinAng.Text = "Min Angle";
             this.labelPredMinAng.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolTip.SetToolTip(this.labelPredMinAng, "Represents the amount of agents that the client will try to spawn. If running on " +
-        "network mode, the limits specified by the server will override this setting. (Se" +
-        "e Server Options)");
-            //
+            // 
             // predAvoidanceMinAng
-            //
+            // 
             this.predAvoidanceMinAng.BackColor = System.Drawing.SystemColors.Window;
             this.predAvoidanceMinAng.DecimalPlaces = 2;
             this.predAvoidanceMinAng.Increment = new decimal(new int[] {
@@ -2370,9 +2189,9 @@
             0,
             0,
             0});
-            //
+            // 
             // labelPredMaxRad
-            //
+            // 
             this.labelPredMaxRad.AutoSize = true;
             this.labelPredMaxRad.Location = new System.Drawing.Point(226, 8);
             this.labelPredMaxRad.Name = "labelPredMaxRad";
@@ -2380,9 +2199,9 @@
             this.labelPredMaxRad.TabIndex = 8;
             this.labelPredMaxRad.Text = "Max Radius";
             this.labelPredMaxRad.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            //
+            // 
             // predAvoidanceMaxRad
-            //
+            // 
             this.predAvoidanceMaxRad.BackColor = System.Drawing.SystemColors.Window;
             this.predAvoidanceMaxRad.DecimalPlaces = 2;
             this.predAvoidanceMaxRad.Increment = new decimal(new int[] {
@@ -2405,9 +2224,9 @@
             0,
             0,
             0});
-            //
+            // 
             // labelPredMinRad
-            //
+            // 
             this.labelPredMinRad.AutoSize = true;
             this.labelPredMinRad.Location = new System.Drawing.Point(127, 8);
             this.labelPredMinRad.Name = "labelPredMinRad";
@@ -2415,12 +2234,9 @@
             this.labelPredMinRad.TabIndex = 7;
             this.labelPredMinRad.Text = "Min Radius";
             this.labelPredMinRad.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolTip.SetToolTip(this.labelPredMinRad, "Represents the amount of agents that the client will try to spawn. If running on " +
-        "network mode, the limits specified by the server will override this setting. (Se" +
-        "e Server Options)");
-            //
+            // 
             // predAvoidanceMinRad
-            //
+            // 
             this.predAvoidanceMinRad.BackColor = System.Drawing.SystemColors.Window;
             this.predAvoidanceMinRad.DecimalPlaces = 2;
             this.predAvoidanceMinRad.Increment = new decimal(new int[] {
@@ -2443,9 +2259,9 @@
             0,
             0,
             0});
-            //
+            // 
             // predAvoidanceEnabled
-            //
+            // 
             this.predAvoidanceEnabled.AutoSize = true;
             this.predAvoidanceEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.predAvoidanceEnabled.Checked = true;
@@ -2457,9 +2273,9 @@
             this.predAvoidanceEnabled.Text = "Avoidance";
             this.predAvoidanceEnabled.UseVisualStyleBackColor = true;
             this.predAvoidanceEnabled.CheckedChanged += new System.EventHandler(this.predAvoidanceEnabled_CheckedChanged);
-            //
+            // 
             // predBehaviourLabel
-            //
+            // 
             this.predBehaviourLabel.AutoSize = true;
             this.predBehaviourLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.predBehaviourLabel.Location = new System.Drawing.Point(15, 242);
@@ -2467,9 +2283,9 @@
             this.predBehaviourLabel.Size = new System.Drawing.Size(98, 13);
             this.predBehaviourLabel.TabIndex = 10;
             this.predBehaviourLabel.Text = "Predator Behaviour";
-            //
+            // 
             // preyBehaviour
-            //
+            // 
             this.preyBehaviour.BackColor = System.Drawing.Color.Transparent;
             this.preyBehaviour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.preyBehaviour.Controls.Add(this.preyFleeMaxInf);
@@ -2517,9 +2333,9 @@
             this.preyBehaviour.Name = "preyBehaviour";
             this.preyBehaviour.Size = new System.Drawing.Size(718, 207);
             this.preyBehaviour.TabIndex = 9;
-            //
+            // 
             // preyFleeMaxInf
-            //
+            // 
             this.preyFleeMaxInf.BackColor = System.Drawing.SystemColors.Window;
             this.preyFleeMaxInf.DecimalPlaces = 2;
             this.preyFleeMaxInf.Increment = new decimal(new int[] {
@@ -2542,9 +2358,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyFleeMinInf
-            //
+            // 
             this.preyFleeMinInf.BackColor = System.Drawing.SystemColors.Window;
             this.preyFleeMinInf.DecimalPlaces = 2;
             this.preyFleeMinInf.Increment = new decimal(new int[] {
@@ -2567,9 +2383,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyFleeMaxAng
-            //
+            // 
             this.preyFleeMaxAng.BackColor = System.Drawing.SystemColors.Window;
             this.preyFleeMaxAng.DecimalPlaces = 2;
             this.preyFleeMaxAng.Increment = new decimal(new int[] {
@@ -2592,9 +2408,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyFleeMinAng
-            //
+            // 
             this.preyFleeMinAng.BackColor = System.Drawing.SystemColors.Window;
             this.preyFleeMinAng.DecimalPlaces = 2;
             this.preyFleeMinAng.Increment = new decimal(new int[] {
@@ -2617,9 +2433,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyFleeMaxRad
-            //
+            // 
             this.preyFleeMaxRad.BackColor = System.Drawing.SystemColors.Window;
             this.preyFleeMaxRad.DecimalPlaces = 2;
             this.preyFleeMaxRad.Increment = new decimal(new int[] {
@@ -2642,9 +2458,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyFleeMinRad
-            //
+            // 
             this.preyFleeMinRad.BackColor = System.Drawing.SystemColors.Window;
             this.preyFleeMinRad.DecimalPlaces = 2;
             this.preyFleeMinRad.Increment = new decimal(new int[] {
@@ -2667,9 +2483,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyFleeEnabled
-            //
+            // 
             this.preyFleeEnabled.AutoSize = true;
             this.preyFleeEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.preyFleeEnabled.Checked = true;
@@ -2681,9 +2497,9 @@
             this.preyFleeEnabled.Text = "Flee";
             this.preyFleeEnabled.UseVisualStyleBackColor = true;
             this.preyFleeEnabled.CheckedChanged += new System.EventHandler(this.preyFleeEnabled_CheckedChanged);
-            //
+            // 
             // preySpeedMaxInf
-            //
+            // 
             this.preySpeedMaxInf.BackColor = System.Drawing.SystemColors.Window;
             this.preySpeedMaxInf.DecimalPlaces = 2;
             this.preySpeedMaxInf.Increment = new decimal(new int[] {
@@ -2706,9 +2522,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preySpeedMinInf
-            //
+            // 
             this.preySpeedMinInf.BackColor = System.Drawing.SystemColors.Window;
             this.preySpeedMinInf.DecimalPlaces = 2;
             this.preySpeedMinInf.Increment = new decimal(new int[] {
@@ -2731,9 +2547,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preySpeedMaxAng
-            //
+            // 
             this.preySpeedMaxAng.BackColor = System.Drawing.SystemColors.Window;
             this.preySpeedMaxAng.DecimalPlaces = 2;
             this.preySpeedMaxAng.Increment = new decimal(new int[] {
@@ -2756,9 +2572,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preySpeedMinAng
-            //
+            // 
             this.preySpeedMinAng.BackColor = System.Drawing.SystemColors.Window;
             this.preySpeedMinAng.DecimalPlaces = 2;
             this.preySpeedMinAng.Increment = new decimal(new int[] {
@@ -2781,9 +2597,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preySpeedMaxRad
-            //
+            // 
             this.preySpeedMaxRad.BackColor = System.Drawing.SystemColors.Window;
             this.preySpeedMaxRad.DecimalPlaces = 2;
             this.preySpeedMaxRad.Increment = new decimal(new int[] {
@@ -2806,9 +2622,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preySpeedMinRad
-            //
+            // 
             this.preySpeedMinRad.BackColor = System.Drawing.SystemColors.Window;
             this.preySpeedMinRad.DecimalPlaces = 2;
             this.preySpeedMinRad.Increment = new decimal(new int[] {
@@ -2831,9 +2647,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preySpeedEnabled
-            //
+            // 
             this.preySpeedEnabled.AutoSize = true;
             this.preySpeedEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.preySpeedEnabled.Checked = true;
@@ -2845,9 +2661,9 @@
             this.preySpeedEnabled.Text = "Speed";
             this.preySpeedEnabled.UseVisualStyleBackColor = true;
             this.preySpeedEnabled.CheckedChanged += new System.EventHandler(this.preySpeedEnabled_CheckedChanged);
-            //
+            // 
             // preyHeadingMaxInf
-            //
+            // 
             this.preyHeadingMaxInf.BackColor = System.Drawing.SystemColors.Window;
             this.preyHeadingMaxInf.DecimalPlaces = 2;
             this.preyHeadingMaxInf.Increment = new decimal(new int[] {
@@ -2870,9 +2686,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyHeadingMinInf
-            //
+            // 
             this.preyHeadingMinInf.BackColor = System.Drawing.SystemColors.Window;
             this.preyHeadingMinInf.DecimalPlaces = 2;
             this.preyHeadingMinInf.Increment = new decimal(new int[] {
@@ -2895,9 +2711,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyHeadingMaxAng
-            //
+            // 
             this.preyHeadingMaxAng.BackColor = System.Drawing.SystemColors.Window;
             this.preyHeadingMaxAng.DecimalPlaces = 2;
             this.preyHeadingMaxAng.Increment = new decimal(new int[] {
@@ -2920,9 +2736,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyHeadingMinAng
-            //
+            // 
             this.preyHeadingMinAng.BackColor = System.Drawing.SystemColors.Window;
             this.preyHeadingMinAng.DecimalPlaces = 2;
             this.preyHeadingMinAng.Increment = new decimal(new int[] {
@@ -2945,9 +2761,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyHeadingMaxRad
-            //
+            // 
             this.preyHeadingMaxRad.BackColor = System.Drawing.SystemColors.Window;
             this.preyHeadingMaxRad.DecimalPlaces = 2;
             this.preyHeadingMaxRad.Increment = new decimal(new int[] {
@@ -2970,9 +2786,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyHeadingMinRad
-            //
+            // 
             this.preyHeadingMinRad.BackColor = System.Drawing.SystemColors.Window;
             this.preyHeadingMinRad.DecimalPlaces = 2;
             this.preyHeadingMinRad.Increment = new decimal(new int[] {
@@ -2995,9 +2811,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyHeadingEnabled
-            //
+            // 
             this.preyHeadingEnabled.AutoSize = true;
             this.preyHeadingEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.preyHeadingEnabled.Checked = true;
@@ -3009,9 +2825,9 @@
             this.preyHeadingEnabled.Text = "Heading";
             this.preyHeadingEnabled.UseVisualStyleBackColor = true;
             this.preyHeadingEnabled.CheckedChanged += new System.EventHandler(this.preyHeadingEnabled_CheckedChanged);
-            //
+            // 
             // preyGroupingMaxInf
-            //
+            // 
             this.preyGroupingMaxInf.BackColor = System.Drawing.SystemColors.Window;
             this.preyGroupingMaxInf.DecimalPlaces = 2;
             this.preyGroupingMaxInf.Increment = new decimal(new int[] {
@@ -3034,9 +2850,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyGroupingMinInf
-            //
+            // 
             this.preyGroupingMinInf.BackColor = System.Drawing.SystemColors.Window;
             this.preyGroupingMinInf.DecimalPlaces = 2;
             this.preyGroupingMinInf.Increment = new decimal(new int[] {
@@ -3059,9 +2875,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyGroupingMaxAng
-            //
+            // 
             this.preyGroupingMaxAng.BackColor = System.Drawing.SystemColors.Window;
             this.preyGroupingMaxAng.DecimalPlaces = 2;
             this.preyGroupingMaxAng.Increment = new decimal(new int[] {
@@ -3084,9 +2900,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyGroupingMinAng
-            //
+            // 
             this.preyGroupingMinAng.BackColor = System.Drawing.SystemColors.Window;
             this.preyGroupingMinAng.DecimalPlaces = 2;
             this.preyGroupingMinAng.Increment = new decimal(new int[] {
@@ -3109,9 +2925,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyGroupingMaxRad
-            //
+            // 
             this.preyGroupingMaxRad.BackColor = System.Drawing.SystemColors.Window;
             this.preyGroupingMaxRad.DecimalPlaces = 2;
             this.preyGroupingMaxRad.Increment = new decimal(new int[] {
@@ -3134,9 +2950,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyGroupingMinRad
-            //
+            // 
             this.preyGroupingMinRad.BackColor = System.Drawing.SystemColors.Window;
             this.preyGroupingMinRad.DecimalPlaces = 2;
             this.preyGroupingMinRad.Increment = new decimal(new int[] {
@@ -3159,9 +2975,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyGroupingEnabled
-            //
+            // 
             this.preyGroupingEnabled.AutoSize = true;
             this.preyGroupingEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.preyGroupingEnabled.Checked = true;
@@ -3173,9 +2989,9 @@
             this.preyGroupingEnabled.Text = "Grouping";
             this.preyGroupingEnabled.UseVisualStyleBackColor = true;
             this.preyGroupingEnabled.CheckedChanged += new System.EventHandler(this.preyGroupingEnabled_CheckedChanged);
-            //
+            // 
             // labelPreyMaxInf
-            //
+            // 
             this.labelPreyMaxInf.AutoSize = true;
             this.labelPreyMaxInf.Location = new System.Drawing.Point(620, 8);
             this.labelPreyMaxInf.Name = "labelPreyMaxInf";
@@ -3183,9 +2999,9 @@
             this.labelPreyMaxInf.TabIndex = 16;
             this.labelPreyMaxInf.Text = "Max Influence";
             this.labelPreyMaxInf.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            //
+            // 
             // preyAvoidanceMaxInf
-            //
+            // 
             this.preyAvoidanceMaxInf.BackColor = System.Drawing.SystemColors.Window;
             this.preyAvoidanceMaxInf.DecimalPlaces = 2;
             this.preyAvoidanceMaxInf.Increment = new decimal(new int[] {
@@ -3208,9 +3024,9 @@
             0,
             0,
             0});
-            //
+            // 
             // labelPreyMinInf
-            //
+            // 
             this.labelPreyMinInf.AutoSize = true;
             this.labelPreyMinInf.Location = new System.Drawing.Point(522, 8);
             this.labelPreyMinInf.Name = "labelPreyMinInf";
@@ -3218,12 +3034,9 @@
             this.labelPreyMinInf.TabIndex = 14;
             this.labelPreyMinInf.Text = "Min Influence";
             this.labelPreyMinInf.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolTip.SetToolTip(this.labelPreyMinInf, "Represents the amount of agents that the client will try to spawn. If running on " +
-        "network mode, the limits specified by the server will override this setting. (Se" +
-        "e Server Options)");
-            //
+            // 
             // preyAvoidanceMinInf
-            //
+            // 
             this.preyAvoidanceMinInf.BackColor = System.Drawing.SystemColors.Window;
             this.preyAvoidanceMinInf.DecimalPlaces = 2;
             this.preyAvoidanceMinInf.Increment = new decimal(new int[] {
@@ -3246,9 +3059,9 @@
             0,
             0,
             0});
-            //
+            // 
             // labelPreyMaxAng
-            //
+            // 
             this.labelPreyMaxAng.AutoSize = true;
             this.labelPreyMaxAng.Location = new System.Drawing.Point(427, 8);
             this.labelPreyMaxAng.Name = "labelPreyMaxAng";
@@ -3256,9 +3069,9 @@
             this.labelPreyMaxAng.TabIndex = 12;
             this.labelPreyMaxAng.Text = "Max Angle";
             this.labelPreyMaxAng.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            //
+            // 
             // preyAvoidanceMaxAng
-            //
+            // 
             this.preyAvoidanceMaxAng.BackColor = System.Drawing.SystemColors.Window;
             this.preyAvoidanceMaxAng.DecimalPlaces = 2;
             this.preyAvoidanceMaxAng.Increment = new decimal(new int[] {
@@ -3281,9 +3094,9 @@
             0,
             0,
             0});
-            //
+            // 
             // labelPreyMinAng
-            //
+            // 
             this.labelPreyMinAng.AutoSize = true;
             this.labelPreyMinAng.Location = new System.Drawing.Point(329, 8);
             this.labelPreyMinAng.Name = "labelPreyMinAng";
@@ -3291,12 +3104,9 @@
             this.labelPreyMinAng.TabIndex = 10;
             this.labelPreyMinAng.Text = "Min Angle";
             this.labelPreyMinAng.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolTip.SetToolTip(this.labelPreyMinAng, "Represents the amount of agents that the client will try to spawn. If running on " +
-        "network mode, the limits specified by the server will override this setting. (Se" +
-        "e Server Options)");
-            //
+            // 
             // preyAvoidanceMinAng
-            //
+            // 
             this.preyAvoidanceMinAng.BackColor = System.Drawing.SystemColors.Window;
             this.preyAvoidanceMinAng.DecimalPlaces = 2;
             this.preyAvoidanceMinAng.Increment = new decimal(new int[] {
@@ -3319,9 +3129,9 @@
             0,
             0,
             0});
-            //
+            // 
             // labelPreyMaxRad
-            //
+            // 
             this.labelPreyMaxRad.AutoSize = true;
             this.labelPreyMaxRad.Location = new System.Drawing.Point(226, 8);
             this.labelPreyMaxRad.Name = "labelPreyMaxRad";
@@ -3329,9 +3139,9 @@
             this.labelPreyMaxRad.TabIndex = 8;
             this.labelPreyMaxRad.Text = "Max Radius";
             this.labelPreyMaxRad.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            //
+            // 
             // preyAvoidanceMaxRad
-            //
+            // 
             this.preyAvoidanceMaxRad.BackColor = System.Drawing.SystemColors.Window;
             this.preyAvoidanceMaxRad.DecimalPlaces = 2;
             this.preyAvoidanceMaxRad.Increment = new decimal(new int[] {
@@ -3354,9 +3164,9 @@
             0,
             0,
             0});
-            //
+            // 
             // labelPreyMinRad
-            //
+            // 
             this.labelPreyMinRad.AutoSize = true;
             this.labelPreyMinRad.Location = new System.Drawing.Point(127, 8);
             this.labelPreyMinRad.Name = "labelPreyMinRad";
@@ -3364,12 +3174,9 @@
             this.labelPreyMinRad.TabIndex = 7;
             this.labelPreyMinRad.Text = "Min Radius";
             this.labelPreyMinRad.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolTip.SetToolTip(this.labelPreyMinRad, "Represents the amount of agents that the client will try to spawn. If running on " +
-        "network mode, the limits specified by the server will override this setting. (Se" +
-        "e Server Options)");
-            //
+            // 
             // preyAvoidanceMinRad
-            //
+            // 
             this.preyAvoidanceMinRad.BackColor = System.Drawing.SystemColors.Window;
             this.preyAvoidanceMinRad.DecimalPlaces = 2;
             this.preyAvoidanceMinRad.Increment = new decimal(new int[] {
@@ -3392,9 +3199,9 @@
             0,
             0,
             0});
-            //
+            // 
             // preyAvoidanceEnabled
-            //
+            // 
             this.preyAvoidanceEnabled.AutoSize = true;
             this.preyAvoidanceEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.preyAvoidanceEnabled.Checked = true;
@@ -3406,9 +3213,9 @@
             this.preyAvoidanceEnabled.Text = "Avoidance";
             this.preyAvoidanceEnabled.UseVisualStyleBackColor = true;
             this.preyAvoidanceEnabled.CheckedChanged += new System.EventHandler(this.preyAvoidanceEnabled_CheckedChanged);
-            //
+            // 
             // preyBehaviourLabel
-            //
+            // 
             this.preyBehaviourLabel.AutoSize = true;
             this.preyBehaviourLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.preyBehaviourLabel.Location = new System.Drawing.Point(15, 13);
@@ -3416,9 +3223,9 @@
             this.preyBehaviourLabel.Size = new System.Drawing.Size(79, 13);
             this.preyBehaviourLabel.TabIndex = 8;
             this.preyBehaviourLabel.Text = "Prey Behaviour";
-            //
+            // 
             // clientOptions
-            //
+            // 
             this.clientOptions.Controls.Add(this.clientNetwork);
             this.clientOptions.Controls.Add(this.labelClientNetwork);
             this.clientOptions.Controls.Add(this.clientPerf);
@@ -3429,9 +3236,9 @@
             this.clientOptions.TabIndex = 4;
             this.clientOptions.Text = "Client Options";
             this.clientOptions.UseVisualStyleBackColor = true;
-            //
+            // 
             // clientNetwork
-            //
+            // 
             this.clientNetwork.BackColor = System.Drawing.Color.Transparent;
             this.clientNetwork.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.clientNetwork.Controls.Add(this.broadcastEnabled);
@@ -3443,9 +3250,9 @@
             this.clientNetwork.Name = "clientNetwork";
             this.clientNetwork.Size = new System.Drawing.Size(453, 113);
             this.clientNetwork.TabIndex = 14;
-            //
+            // 
             // broadcastEnabled
-            //
+            // 
             this.broadcastEnabled.AutoSize = true;
             this.broadcastEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.broadcastEnabled.Checked = true;
@@ -3455,48 +3262,55 @@
             this.broadcastEnabled.Size = new System.Drawing.Size(74, 17);
             this.broadcastEnabled.TabIndex = 11;
             this.broadcastEnabled.Text = "Broadcast";
+            this.toolTip.SetToolTip(this.broadcastEnabled, "Attempts to broadcast to all local addresses to handshake with a server. If the s" +
+        "erver is remote, or a handshake is not successful, try connecting with a direct " +
+        "IP");
             this.broadcastEnabled.UseVisualStyleBackColor = true;
             this.broadcastEnabled.CheckedChanged += new System.EventHandler(this.broadcastEnabled_CheckedChanged);
-            //
+            // 
             // clientConnectPort
-            //
+            // 
             this.clientConnectPort.Location = new System.Drawing.Point(138, 78);
             this.clientConnectPort.MaxLength = 5;
             this.clientConnectPort.Name = "clientConnectPort";
             this.clientConnectPort.Size = new System.Drawing.Size(84, 20);
             this.clientConnectPort.TabIndex = 10;
             this.clientConnectPort.Text = "1300";
+            this.toolTip.SetToolTip(this.clientConnectPort, "The port the server is listening on.");
             this.clientConnectPort.Validating += new System.ComponentModel.CancelEventHandler(this.clientConnectPort_Validating);
-            //
+            // 
             // clientConnectIP
-            //
+            // 
             this.clientConnectIP.Enabled = false;
             this.clientConnectIP.Location = new System.Drawing.Point(138, 42);
             this.clientConnectIP.MaxLength = 45;
             this.clientConnectIP.Name = "clientConnectIP";
             this.clientConnectIP.Size = new System.Drawing.Size(302, 20);
             this.clientConnectIP.TabIndex = 9;
-            //
+            this.toolTip.SetToolTip(this.clientConnectIP, "The direct server IP you wish to connect to.");
+            // 
             // clientConnectPortLabel
-            //
+            // 
             this.clientConnectPortLabel.AutoSize = true;
             this.clientConnectPortLabel.Location = new System.Drawing.Point(10, 80);
             this.clientConnectPortLabel.Name = "clientConnectPortLabel";
             this.clientConnectPortLabel.Size = new System.Drawing.Size(69, 13);
             this.clientConnectPortLabel.TabIndex = 4;
             this.clientConnectPortLabel.Text = "Connect Port";
-            //
+            this.toolTip.SetToolTip(this.clientConnectPortLabel, "The port the server is listening on.");
+            // 
             // clientConnectIPLabel
-            //
+            // 
             this.clientConnectIPLabel.AutoSize = true;
             this.clientConnectIPLabel.Location = new System.Drawing.Point(10, 45);
             this.clientConnectIPLabel.Name = "clientConnectIPLabel";
             this.clientConnectIPLabel.Size = new System.Drawing.Size(60, 13);
             this.clientConnectIPLabel.TabIndex = 2;
             this.clientConnectIPLabel.Text = "Connect IP";
-            //
+            this.toolTip.SetToolTip(this.clientConnectIPLabel, "The direct server IP you wish to connect to.");
+            // 
             // labelClientNetwork
-            //
+            // 
             this.labelClientNetwork.AutoSize = true;
             this.labelClientNetwork.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelClientNetwork.Location = new System.Drawing.Point(15, 114);
@@ -3504,9 +3318,9 @@
             this.labelClientNetwork.Size = new System.Drawing.Size(47, 13);
             this.labelClientNetwork.TabIndex = 13;
             this.labelClientNetwork.Text = "Network";
-            //
+            // 
             // clientPerf
-            //
+            // 
             this.clientPerf.BackColor = System.Drawing.Color.Transparent;
             this.clientPerf.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.clientPerf.Controls.Add(this.labelClientPhysIntSec);
@@ -3518,18 +3332,18 @@
             this.clientPerf.Name = "clientPerf";
             this.clientPerf.Size = new System.Drawing.Size(453, 79);
             this.clientPerf.TabIndex = 12;
-            //
+            // 
             // labelClientPhysIntSec
-            //
+            // 
             this.labelClientPhysIntSec.AutoSize = true;
             this.labelClientPhysIntSec.Location = new System.Drawing.Point(228, 46);
             this.labelClientPhysIntSec.Name = "labelClientPhysIntSec";
             this.labelClientPhysIntSec.Size = new System.Drawing.Size(49, 13);
             this.labelClientPhysIntSec.TabIndex = 11;
             this.labelClientPhysIntSec.Text = "Seconds";
-            //
+            // 
             // frameRateLockEnabled
-            //
+            // 
             this.frameRateLockEnabled.AutoSize = true;
             this.frameRateLockEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.frameRateLockEnabled.Location = new System.Drawing.Point(10, 9);
@@ -3537,11 +3351,13 @@
             this.frameRateLockEnabled.Size = new System.Drawing.Size(108, 17);
             this.frameRateLockEnabled.TabIndex = 10;
             this.frameRateLockEnabled.Text = "Lock Frame Rate";
+            this.toolTip.SetToolTip(this.frameRateLockEnabled, "How often to render the scene. This does not affect the speed of the simulation, " +
+        "only the smoothness of rendering.");
             this.frameRateLockEnabled.UseVisualStyleBackColor = true;
             this.frameRateLockEnabled.CheckedChanged += new System.EventHandler(this.frameRateLockEnabled_CheckedChanged);
-            //
+            // 
             // frameRateCapAmt
-            //
+            // 
             this.frameRateCapAmt.BackColor = System.Drawing.SystemColors.Window;
             this.frameRateCapAmt.Enabled = false;
             this.frameRateCapAmt.Location = new System.Drawing.Point(138, 8);
@@ -3559,14 +3375,16 @@
             this.frameRateCapAmt.Size = new System.Drawing.Size(84, 20);
             this.frameRateCapAmt.TabIndex = 9;
             this.frameRateCapAmt.ThousandsSeparator = true;
+            this.toolTip.SetToolTip(this.frameRateCapAmt, "How often to render the scene. This does not affect the speed of the simulation, " +
+        "only the smoothness of rendering.");
             this.frameRateCapAmt.Value = new decimal(new int[] {
             60,
             0,
             0,
             0});
-            //
+            // 
             // clientPhysInt
-            //
+            // 
             this.clientPhysInt.BackColor = System.Drawing.SystemColors.Window;
             this.clientPhysInt.DecimalPlaces = 3;
             this.clientPhysInt.Increment = new decimal(new int[] {
@@ -3584,23 +3402,27 @@
             this.clientPhysInt.Size = new System.Drawing.Size(84, 20);
             this.clientPhysInt.TabIndex = 8;
             this.clientPhysInt.ThousandsSeparator = true;
+            this.toolTip.SetToolTip(this.clientPhysInt, "The interval between agent and physics updates, which are independent from frame " +
+        "rate.");
             this.clientPhysInt.Value = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            //
+            // 
             // labelClientPhysInt
-            //
+            // 
             this.labelClientPhysInt.AutoSize = true;
             this.labelClientPhysInt.Location = new System.Drawing.Point(10, 45);
             this.labelClientPhysInt.Name = "labelClientPhysInt";
             this.labelClientPhysInt.Size = new System.Drawing.Size(81, 13);
             this.labelClientPhysInt.TabIndex = 4;
             this.labelClientPhysInt.Text = "Physics Interval";
-            //
+            this.toolTip.SetToolTip(this.labelClientPhysInt, "The interval between agent and physics updates, which are independent from frame " +
+        "rate.");
+            // 
             // labelClientPerf
-            //
+            // 
             this.labelClientPerf.AutoSize = true;
             this.labelClientPerf.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelClientPerf.Location = new System.Drawing.Point(15, 13);
@@ -3608,9 +3430,9 @@
             this.labelClientPerf.Size = new System.Drawing.Size(67, 13);
             this.labelClientPerf.TabIndex = 11;
             this.labelClientPerf.Text = "Performance";
-            //
+            // 
             // serverOptions
-            //
+            // 
             this.serverOptions.Controls.Add(this.serverNetwork);
             this.serverOptions.Controls.Add(this.labelServerNetwork);
             this.serverOptions.Controls.Add(this.serverLimits);
@@ -3621,9 +3443,52 @@
             this.serverOptions.TabIndex = 2;
             this.serverOptions.Text = "Server Options";
             this.serverOptions.UseVisualStyleBackColor = true;
-            //
+            // 
+            // serverNetwork
+            // 
+            this.serverNetwork.BackColor = System.Drawing.Color.Transparent;
+            this.serverNetwork.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.serverNetwork.Controls.Add(this.serverPort);
+            this.serverNetwork.Controls.Add(this.labelServerPort);
+            this.serverNetwork.Location = new System.Drawing.Point(18, 169);
+            this.serverNetwork.Name = "serverNetwork";
+            this.serverNetwork.Size = new System.Drawing.Size(453, 45);
+            this.serverNetwork.TabIndex = 16;
+            // 
+            // serverPort
+            // 
+            this.serverPort.Location = new System.Drawing.Point(148, 8);
+            this.serverPort.MaxLength = 5;
+            this.serverPort.Name = "serverPort";
+            this.serverPort.Size = new System.Drawing.Size(84, 20);
+            this.serverPort.TabIndex = 10;
+            this.serverPort.Text = "1300";
+            this.toolTip.SetToolTip(this.serverPort, "The listen port for the server. Make sure this port is open before attempting to " +
+        "host.");
+            // 
+            // labelServerPort
+            // 
+            this.labelServerPort.AutoSize = true;
+            this.labelServerPort.Location = new System.Drawing.Point(10, 10);
+            this.labelServerPort.Name = "labelServerPort";
+            this.labelServerPort.Size = new System.Drawing.Size(60, 13);
+            this.labelServerPort.TabIndex = 4;
+            this.labelServerPort.Text = "Server Port";
+            this.toolTip.SetToolTip(this.labelServerPort, "The listen port for the server. Make sure this port is open before attempting to " +
+        "host.");
+            // 
+            // labelServerNetwork
+            // 
+            this.labelServerNetwork.AutoSize = true;
+            this.labelServerNetwork.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelServerNetwork.Location = new System.Drawing.Point(15, 150);
+            this.labelServerNetwork.Name = "labelServerNetwork";
+            this.labelServerNetwork.Size = new System.Drawing.Size(47, 13);
+            this.labelServerNetwork.TabIndex = 15;
+            this.labelServerNetwork.Text = "Network";
+            // 
             // serverLimits
-            //
+            // 
             this.serverLimits.BackColor = System.Drawing.Color.Transparent;
             this.serverLimits.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.serverLimits.Controls.Add(this.labelServerPhysIntSec);
@@ -3637,160 +3502,18 @@
             this.serverLimits.Name = "serverLimits";
             this.serverLimits.Size = new System.Drawing.Size(337, 115);
             this.serverLimits.TabIndex = 8;
-            //
-            // serverMaxClients
-            //
-            this.serverMaxClients.BackColor = System.Drawing.SystemColors.Window;
-            this.serverMaxClients.Location = new System.Drawing.Point(148, 43);
-            this.serverMaxClients.Maximum = new decimal(new int[] {
-            64,
-            0,
-            0,
-            0});
-            this.serverMaxClients.Name = "serverMaxClients";
-            this.serverMaxClients.Size = new System.Drawing.Size(84, 20);
-            this.serverMaxClients.TabIndex = 8;
-            this.serverMaxClients.ThousandsSeparator = true;
-            this.serverMaxClients.Value = new decimal(new int[] {
-            16,
-            0,
-            0,
-            0});
-            //
-            // labelServerMaxClients
-            //
-            this.labelServerMaxClients.AutoSize = true;
-            this.labelServerMaxClients.Location = new System.Drawing.Point(10, 45);
-            this.labelServerMaxClients.Name = "labelServerMaxClients";
-            this.labelServerMaxClients.Size = new System.Drawing.Size(61, 13);
-            this.labelServerMaxClients.TabIndex = 4;
-            this.labelServerMaxClients.Text = "Max Clients";
-            //
-            // maxAgentsPerC
-            //
-            this.maxAgentsPerC.BackColor = System.Drawing.SystemColors.Window;
-            this.maxAgentsPerC.Location = new System.Drawing.Point(148, 8);
-            this.maxAgentsPerC.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.maxAgentsPerC.Name = "maxAgentsPerC";
-            this.maxAgentsPerC.Size = new System.Drawing.Size(84, 20);
-            this.maxAgentsPerC.TabIndex = 3;
-            this.maxAgentsPerC.ThousandsSeparator = true;
-            this.maxAgentsPerC.Value = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            //
-            // labelMaxAgentsPerC
-            //
-            this.labelMaxAgentsPerC.AutoSize = true;
-            this.labelMaxAgentsPerC.Location = new System.Drawing.Point(10, 10);
-            this.labelMaxAgentsPerC.Name = "labelMaxAgentsPerC";
-            this.labelMaxAgentsPerC.Size = new System.Drawing.Size(111, 13);
-            this.labelMaxAgentsPerC.TabIndex = 2;
-            this.labelMaxAgentsPerC.Text = "Max Agents Per Client";
-            //
-            // labelServerLimits
-            //
-            this.labelServerLimits.AutoSize = true;
-            this.labelServerLimits.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelServerLimits.Location = new System.Drawing.Point(15, 13);
-            this.labelServerLimits.Name = "labelServerLimits";
-            this.labelServerLimits.Size = new System.Drawing.Size(33, 13);
-            this.labelServerLimits.TabIndex = 7;
-            this.labelServerLimits.Text = "Limits";
-            //
-            // startLocal
-            //
-            this.startLocal.Location = new System.Drawing.Point(521, 12);
-            this.startLocal.Name = "startLocal";
-            this.startLocal.Size = new System.Drawing.Size(122, 23);
-            this.startLocal.TabIndex = 3;
-            this.startLocal.Text = "Start Local";
-            this.startLocal.UseVisualStyleBackColor = true;
-            //
-            // startNetworkClient
-            //
-            this.startNetworkClient.Location = new System.Drawing.Point(649, 12);
-            this.startNetworkClient.Name = "startNetworkClient";
-            this.startNetworkClient.Size = new System.Drawing.Size(122, 23);
-            this.startNetworkClient.TabIndex = 4;
-            this.startNetworkClient.Text = "Start Network Client";
-            this.startNetworkClient.UseVisualStyleBackColor = true;
-            //
-            // startNetworkServer
-            //
-            this.startNetworkServer.Location = new System.Drawing.Point(649, 41);
-            this.startNetworkServer.Name = "startNetworkServer";
-            this.startNetworkServer.Size = new System.Drawing.Size(122, 23);
-            this.startNetworkServer.TabIndex = 5;
-            this.startNetworkServer.Text = "Start Network Server";
-            this.startNetworkServer.UseVisualStyleBackColor = true;
-            //
-            // exportButton
-            //
-            this.exportButton.Location = new System.Drawing.Point(94, 41);
-            this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(76, 24);
-            this.exportButton.TabIndex = 6;
-            this.exportButton.Text = "Export...";
-            this.exportButton.UseVisualStyleBackColor = true;
-            this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
-            //
-            // labelServerNetwork
-            //
-            this.labelServerNetwork.AutoSize = true;
-            this.labelServerNetwork.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelServerNetwork.Location = new System.Drawing.Point(15, 150);
-            this.labelServerNetwork.Name = "labelServerNetwork";
-            this.labelServerNetwork.Size = new System.Drawing.Size(47, 13);
-            this.labelServerNetwork.TabIndex = 15;
-            this.labelServerNetwork.Text = "Network";
-            //
-            // labelServerPort
-            //
-            this.labelServerPort.AutoSize = true;
-            this.labelServerPort.Location = new System.Drawing.Point(10, 10);
-            this.labelServerPort.Name = "labelServerPort";
-            this.labelServerPort.Size = new System.Drawing.Size(60, 13);
-            this.labelServerPort.TabIndex = 4;
-            this.labelServerPort.Text = "Server Port";
-            //
-            // serverNetwork
-            //
-            this.serverNetwork.BackColor = System.Drawing.Color.Transparent;
-            this.serverNetwork.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.serverNetwork.Controls.Add(this.serverPort);
-            this.serverNetwork.Controls.Add(this.labelServerPort);
-            this.serverNetwork.Location = new System.Drawing.Point(18, 169);
-            this.serverNetwork.Name = "serverNetwork";
-            this.serverNetwork.Size = new System.Drawing.Size(453, 45);
-            this.serverNetwork.TabIndex = 16;
-            //
-            // serverPort
-            //
-            this.serverPort.Location = new System.Drawing.Point(148, 8);
-            this.serverPort.MaxLength = 5;
-            this.serverPort.Name = "serverPort";
-            this.serverPort.Size = new System.Drawing.Size(84, 20);
-            this.serverPort.TabIndex = 10;
-            this.serverPort.Text = "1300";
-            //
-            // labelServerPhysInt
-            //
-            this.labelServerPhysInt.AutoSize = true;
-            this.labelServerPhysInt.Location = new System.Drawing.Point(10, 80);
-            this.labelServerPhysInt.Name = "labelServerPhysInt";
-            this.labelServerPhysInt.Size = new System.Drawing.Size(133, 13);
-            this.labelServerPhysInt.TabIndex = 9;
-            this.labelServerPhysInt.Text = "Max Client Physics Interval";
-            //
+            // 
+            // labelServerPhysIntSec
+            // 
+            this.labelServerPhysIntSec.AutoSize = true;
+            this.labelServerPhysIntSec.Location = new System.Drawing.Point(238, 81);
+            this.labelServerPhysIntSec.Name = "labelServerPhysIntSec";
+            this.labelServerPhysIntSec.Size = new System.Drawing.Size(49, 13);
+            this.labelServerPhysIntSec.TabIndex = 17;
+            this.labelServerPhysIntSec.Text = "Seconds";
+            // 
             // serverPhysInt
-            //
+            // 
             this.serverPhysInt.BackColor = System.Drawing.SystemColors.Window;
             this.serverPhysInt.DecimalPlaces = 3;
             this.serverPhysInt.Increment = new decimal(new int[] {
@@ -3808,23 +3531,141 @@
             this.serverPhysInt.Size = new System.Drawing.Size(84, 20);
             this.serverPhysInt.TabIndex = 17;
             this.serverPhysInt.ThousandsSeparator = true;
+            this.toolTip.SetToolTip(this.serverPhysInt, "Caps the number of updates that the client can send to the server.");
             this.serverPhysInt.Value = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            //
-            // labelServerPhysIntSec
-            //
-            this.labelServerPhysIntSec.AutoSize = true;
-            this.labelServerPhysIntSec.Location = new System.Drawing.Point(238, 81);
-            this.labelServerPhysIntSec.Name = "labelServerPhysIntSec";
-            this.labelServerPhysIntSec.Size = new System.Drawing.Size(49, 13);
-            this.labelServerPhysIntSec.TabIndex = 17;
-            this.labelServerPhysIntSec.Text = "Seconds";
-            //
+            // 
+            // labelServerPhysInt
+            // 
+            this.labelServerPhysInt.AutoSize = true;
+            this.labelServerPhysInt.Location = new System.Drawing.Point(10, 80);
+            this.labelServerPhysInt.Name = "labelServerPhysInt";
+            this.labelServerPhysInt.Size = new System.Drawing.Size(133, 13);
+            this.labelServerPhysInt.TabIndex = 9;
+            this.labelServerPhysInt.Text = "Max Client Physics Interval";
+            this.toolTip.SetToolTip(this.labelServerPhysInt, "Caps the number of updates that the client can send to the server.");
+            // 
+            // serverMaxClients
+            // 
+            this.serverMaxClients.BackColor = System.Drawing.SystemColors.Window;
+            this.serverMaxClients.Location = new System.Drawing.Point(148, 43);
+            this.serverMaxClients.Maximum = new decimal(new int[] {
+            64,
+            0,
+            0,
+            0});
+            this.serverMaxClients.Name = "serverMaxClients";
+            this.serverMaxClients.Size = new System.Drawing.Size(84, 20);
+            this.serverMaxClients.TabIndex = 8;
+            this.serverMaxClients.ThousandsSeparator = true;
+            this.toolTip.SetToolTip(this.serverMaxClients, "Maximum number of simultaneous clients. Additional clients are ignored.");
+            this.serverMaxClients.Value = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            // 
+            // labelServerMaxClients
+            // 
+            this.labelServerMaxClients.AutoSize = true;
+            this.labelServerMaxClients.Location = new System.Drawing.Point(10, 45);
+            this.labelServerMaxClients.Name = "labelServerMaxClients";
+            this.labelServerMaxClients.Size = new System.Drawing.Size(61, 13);
+            this.labelServerMaxClients.TabIndex = 4;
+            this.labelServerMaxClients.Text = "Max Clients";
+            this.toolTip.SetToolTip(this.labelServerMaxClients, "Maximum number of simultaneous clients. Additional clients are ignored.");
+            // 
+            // maxAgentsPerC
+            // 
+            this.maxAgentsPerC.BackColor = System.Drawing.SystemColors.Window;
+            this.maxAgentsPerC.Location = new System.Drawing.Point(148, 8);
+            this.maxAgentsPerC.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.maxAgentsPerC.Name = "maxAgentsPerC";
+            this.maxAgentsPerC.Size = new System.Drawing.Size(84, 20);
+            this.maxAgentsPerC.TabIndex = 3;
+            this.maxAgentsPerC.ThousandsSeparator = true;
+            this.toolTip.SetToolTip(this.maxAgentsPerC, "Limits the number of agents each client can send to the server. Additional agents" +
+        " are ignored.");
+            this.maxAgentsPerC.Value = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            // 
+            // labelMaxAgentsPerC
+            // 
+            this.labelMaxAgentsPerC.AutoSize = true;
+            this.labelMaxAgentsPerC.Location = new System.Drawing.Point(10, 10);
+            this.labelMaxAgentsPerC.Name = "labelMaxAgentsPerC";
+            this.labelMaxAgentsPerC.Size = new System.Drawing.Size(111, 13);
+            this.labelMaxAgentsPerC.TabIndex = 2;
+            this.labelMaxAgentsPerC.Text = "Max Agents Per Client";
+            this.toolTip.SetToolTip(this.labelMaxAgentsPerC, "Limits the number of agents each client can send to the server. Additional agents" +
+        " are ignored.");
+            // 
+            // labelServerLimits
+            // 
+            this.labelServerLimits.AutoSize = true;
+            this.labelServerLimits.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelServerLimits.Location = new System.Drawing.Point(15, 13);
+            this.labelServerLimits.Name = "labelServerLimits";
+            this.labelServerLimits.Size = new System.Drawing.Size(33, 13);
+            this.labelServerLimits.TabIndex = 7;
+            this.labelServerLimits.Text = "Limits";
+            // 
+            // startLocal
+            // 
+            this.startLocal.Location = new System.Drawing.Point(521, 12);
+            this.startLocal.Name = "startLocal";
+            this.startLocal.Size = new System.Drawing.Size(122, 23);
+            this.startLocal.TabIndex = 3;
+            this.startLocal.Text = "Start Local";
+            this.toolTip.SetToolTip(this.startLocal, "Start a local simulation");
+            this.startLocal.UseVisualStyleBackColor = true;
+            this.startLocal.Click += new System.EventHandler(this.startLocal_Click);
+            // 
+            // startNetworkClient
+            // 
+            this.startNetworkClient.Enabled = false;
+            this.startNetworkClient.Location = new System.Drawing.Point(649, 12);
+            this.startNetworkClient.Name = "startNetworkClient";
+            this.startNetworkClient.Size = new System.Drawing.Size(122, 23);
+            this.startNetworkClient.TabIndex = 4;
+            this.startNetworkClient.Text = "Start Network Client";
+            this.toolTip.SetToolTip(this.startNetworkClient, "Connect to an existing online server");
+            this.startNetworkClient.UseVisualStyleBackColor = true;
+            // 
+            // startNetworkServer
+            // 
+            this.startNetworkServer.Enabled = false;
+            this.startNetworkServer.Location = new System.Drawing.Point(649, 41);
+            this.startNetworkServer.Name = "startNetworkServer";
+            this.startNetworkServer.Size = new System.Drawing.Size(122, 23);
+            this.startNetworkServer.TabIndex = 5;
+            this.startNetworkServer.Text = "Start Network Server";
+            this.toolTip.SetToolTip(this.startNetworkServer, "Host server");
+            this.startNetworkServer.UseVisualStyleBackColor = true;
+            // 
+            // exportButton
+            // 
+            this.exportButton.Location = new System.Drawing.Point(94, 41);
+            this.exportButton.Name = "exportButton";
+            this.exportButton.Size = new System.Drawing.Size(76, 24);
+            this.exportButton.TabIndex = 6;
+            this.exportButton.Text = "Export...";
+            this.toolTip.SetToolTip(this.exportButton, "Export current config to json");
+            this.exportButton.UseVisualStyleBackColor = true;
+            this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
+            // 
             // mainForm
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(791, 643);
@@ -3845,8 +3686,6 @@
             this.predOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.predMaxSpawnRad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.predMinSpawnRad)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.predSpawnPosY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.predSpawnPosX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.predMaxMass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.predMinMass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.predMaxSize)).EndInit();
@@ -3859,8 +3698,6 @@
             this.preyOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.preyMaxSpawnRad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.preyMinSpawnRad)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.preySpawnPosY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.preySpawnPosX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.preyMaxMass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.preyMinMass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.preyMaxSize)).EndInit();
@@ -3955,13 +3792,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.clientPhysInt)).EndInit();
             this.serverOptions.ResumeLayout(false);
             this.serverOptions.PerformLayout();
-            this.serverLimits.ResumeLayout(false);
-            this.serverLimits.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.serverMaxClients)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maxAgentsPerC)).EndInit();
             this.serverNetwork.ResumeLayout(false);
             this.serverNetwork.PerformLayout();
+            this.serverLimits.ResumeLayout(false);
+            this.serverLimits.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.serverPhysInt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.serverMaxClients)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxAgentsPerC)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4040,11 +3877,6 @@
         private System.Windows.Forms.Label labelPreySpawnRad;
         private System.Windows.Forms.NumericUpDown preyMaxSpawnRad;
         private System.Windows.Forms.NumericUpDown preyMinSpawnRad;
-        private System.Windows.Forms.Label labelPreySpawnPos;
-        private System.Windows.Forms.Label labelPreySpawnPosY;
-        private System.Windows.Forms.NumericUpDown preySpawnPosY;
-        private System.Windows.Forms.Label labelPreySpawnPosX;
-        private System.Windows.Forms.NumericUpDown preySpawnPosX;
         private System.Windows.Forms.Label labelPreyMass;
         private System.Windows.Forms.Label labelPreySize;
         private System.Windows.Forms.Label labelPreyStartVel;
@@ -4115,11 +3947,6 @@
         private System.Windows.Forms.Label labelPredSpawnRad;
         private System.Windows.Forms.NumericUpDown predMaxSpawnRad;
         private System.Windows.Forms.NumericUpDown predMinSpawnRad;
-        private System.Windows.Forms.Label labelPredSpawnPos;
-        private System.Windows.Forms.Label labelPredSpawnPosY;
-        private System.Windows.Forms.NumericUpDown predSpawnPosY;
-        private System.Windows.Forms.Label labelPredSpawnPosX;
-        private System.Windows.Forms.NumericUpDown predSpawnPosX;
         private System.Windows.Forms.Label labelPredMass;
         private System.Windows.Forms.Label labelPredSize;
         private System.Windows.Forms.Label labelPredStartVel;

@@ -1,4 +1,5 @@
 #include "Obstacle.hpp"
+#include "SFML/Graphics.hpp"
 
 void FA::Obstacle::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {

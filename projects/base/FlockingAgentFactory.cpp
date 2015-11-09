@@ -2,9 +2,155 @@
 #include "Range.hpp"
 #include "App.hpp"
 #include "Scene.hpp"
+#include "Config.hpp"
 
-FA::FlockingAgent* FA::AgentFactory::Create(const FA::AgentFactory::Params& p)const
+::FA::AgentFactory::AgentFactory(b2World* w) : mPhysWorld(w)
 {
+	FA::Config* config = FA::App::Instance().GetConfig();
+
+#pragma region prey
+	mPreyParams = new Params();
+
+	mPreyParams->spawnAt.SetRadius(Range(config->preyMinSpawnRad, config->preyMaxSpawnRad));
+	mPreyParams->accel = Range(config->preyMinAccel, config->preyMaxAccel);
+	mPreyParams->startingVel.SetRadius(Range(config->preyMinStartVel, config->preyMaxStartVel));
+
+	mPreyParams->size = Range(config->preyMinSize, config->preyMaxSize);
+	mPreyParams->mass = Range(config->preyMinMass, config->preyMaxMass);
+
+	if (config->preyAvoidanceEnabled)
+	{
+		mPreyParams->spec.SetAvoidance(FA::SensorSpecification(config->preyAvoidanceMinRad,
+			config->preyAvoidanceMaxRad,
+			config->preyAvoidanceMinAng,
+			config->preyAvoidanceMaxAng,
+			config->preyAvoidanceMinInf,
+			config->preyAvoidanceMaxInf));
+	}
+
+	if (config->preyGroupingEnabled)
+	{
+		mPreyParams->spec.SetGrouping(FA::SensorSpecification(config->preyGroupingMinRad,
+			config->preyGroupingMaxRad,
+			config->preyGroupingMinAng,
+			config->preyGroupingMaxAng,
+			config->preyGroupingMinInf,
+			config->preyGroupingMaxInf));
+	}
+
+	if (config->preyHeadingEnabled)
+	{
+		mPreyParams->spec.SetHeading(FA::SensorSpecification(config->preyHeadingMinRad,
+			config->preyHeadingMaxRad,
+			config->preyHeadingMinAng,
+			config->preyHeadingMaxAng,
+			config->preyHeadingMinInf,
+			config->preyHeadingMaxInf));
+	}
+
+	if (config->preySpeedEnabled)
+	{
+		mPreyParams->spec.SetSpeed(FA::SensorSpecification(config->preySpeedMinRad,
+			config->preySpeedMaxRad,
+			config->preySpeedMinAng,
+			config->preySpeedMaxAng,
+			config->preySpeedMinInf,
+			config->preySpeedMaxInf));
+	}
+
+	if (config->preyFleeEnabled)
+	{
+		mPreyParams->spec.SetFlee(FA::SensorSpecification(config->preyFleeMinRad,
+			config->preyFleeMaxRad,
+			config->preyFleeMinAng,
+			config->preyFleeMaxAng,
+			config->preyFleeMinInf,
+			config->preyFleeMaxInf));
+	}
+#pragma endregion
+
+#pragma region predators
+	mPredParams = new Params();
+
+	mPredParams->spawnAt.SetRadius(Range(config->preyMinSpawnRad, config->preyMaxSpawnRad));
+	mPredParams->accel = Range(config->preyMinAccel, config->preyMaxAccel);
+	mPredParams->startingVel.SetRadius(Range(config->preyMinStartVel, config->preyMaxStartVel));
+	mPredParams->size = Range(config->preyMinSize, config->preyMaxSize);
+	mPredParams->mass = Range(config->preyMinMass, config->preyMaxMass);;
+
+	mPredParams->isPrey = false;
+
+	if (config->predAvoidanceEnabled)
+	{
+		mPredParams->spec.SetAvoidance(FA::SensorSpecification(config->predAvoidanceMinRad,
+			config->predAvoidanceMaxRad,
+			config->predAvoidanceMinAng,
+			config->predAvoidanceMaxAng,
+			config->predAvoidanceMinInf,
+			config->predAvoidanceMaxInf));
+	}
+
+	if (config->predGroupingEnabled)
+	{
+		mPredParams->spec.SetGrouping(FA::SensorSpecification(config->predGroupingMinRad,
+			config->predGroupingMaxRad,
+			config->predGroupingMinAng,
+			config->predGroupingMaxAng,
+			config->predGroupingMinInf,
+			config->predGroupingMaxInf));
+	}
+
+	if (config->predHeadingEnabled)
+	{
+		mPredParams->spec.SetHeading(FA::SensorSpecification(config->predHeadingMinRad,
+			config->predHeadingMaxRad,
+			config->predHeadingMinAng,
+			config->predHeadingMaxAng,
+			config->predHeadingMinInf,
+			config->predHeadingMaxInf));
+	}
+
+	if (config->predSpeedEnabled)
+	{
+		mPredParams->spec.SetSpeed(FA::SensorSpecification(config->predSpeedMinRad,
+			config->predSpeedMaxRad,
+			config->predSpeedMinAng,
+			config->predSpeedMaxAng,
+			config->predSpeedMinInf,
+			config->predSpeedMaxInf));
+	}
+
+	if (config->predFleeEnabled)
+	{
+		mPredParams->spec.SetFlee(FA::SensorSpecification(config->predFleeMinRad,
+			config->predFleeMaxRad,
+			config->predFleeMinAng,
+			config->predFleeMaxAng,
+			config->predFleeMinInf,
+			config->predFleeMaxInf));
+	}
+
+	if (config->predChaseEnabled)
+	{
+		mPredParams->spec.SetChase(FA::SensorSpecification(config->predChaseMinRad,
+			config->predChaseMaxRad,
+			config->predChaseMinAng,
+			config->predChaseMaxAng,
+			config->predChaseMinInf,
+			config->predChaseMaxInf));
+	}
+#pragma endregion
+}
+
+FA::FlockingAgent* FA::AgentFactory::Create(bool isPrey)const
+{
+	Params& p = *mPreyParams;
+
+	if (!isPrey)
+	{
+		p = *mPredParams;
+	}
+
 	FlockingAgent* retval = new FlockingAgent();
 
 	//generate from rands
@@ -37,11 +183,22 @@ FA::FlockingAgent* FA::AgentFactory::Create(const FA::AgentFactory::Params& p)co
 	retval->GetCentreCircle()->setOrigin(size, size);
 
 	//Start position
+	FA::Config* config = FA::App::Instance().GetConfig();
+
 	sf::Vector2u windowSize = App::Instance().GetWindow()->getSize();
 
 	kf::Vector2f startPos;
-	startPos.x = rand() % windowSize.x;
-	startPos.y = rand() % windowSize.y;
+
+	if (config->rndSpawn)
+	{
+		startPos.x = rand() % windowSize.x;
+		startPos.y = rand() % windowSize.y;
+	}
+
+	else
+	{
+		startPos = p.spawnAt.Rand();
+	}
 
 	//set vals
 	retval->SetPosition(startPos);

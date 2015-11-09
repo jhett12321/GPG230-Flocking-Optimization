@@ -1,9 +1,8 @@
 #ifndef RANGE_H
 #define RANGE_H
 
+#include <kf/kf_vector2.h>
 #include "Macros.hpp"
-#include "kf\kf_vector2.h"
-#include  <cstdlib>
 
 /**
 	Class for generating a value between a given range
@@ -14,17 +13,17 @@ public:
 	Range() :mMin(0), mMax(1){}
 	Range(float min, float max) :mMin(min), mMax(max){}
 
-	float Rand()const 
-	{ 
-		return (float)((rand() / (double)RAND_MAX)*(mMax - mMin) + mMin); 
+	float Rand()const
+	{
+		return (float)((rand() / (double)RAND_MAX)*(mMax - mMin) + mMin);
 	}
-	
+
 	PUBLIC_DATA_PROPERTY(float, Min);
 	PUBLIC_DATA_PROPERTY(float, Max)
 };
 
 /**
-	Generator for random points on a circlular disc. Uniform in cylindrical space not euclidean
+	Generator for random points on a circular disc. Uniform in cylindrical space not euclidean
 */
 class Circle
 {

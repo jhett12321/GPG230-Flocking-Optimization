@@ -1,7 +1,6 @@
 #ifndef OBSTACLEFACTORY_H
 #define OBSTACLEFACTORY_H
 
-//lazy include
 #include "Obstacle.hpp"
 
 namespace FA

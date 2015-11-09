@@ -3,12 +3,12 @@
 #include "kf/kf_log.h"
 #include "qgf2d/system.h"
 #include "qgf2d/anim.h"
-#include <Box2D\Box2D.h>
 
 #include "FlockingAgentFactory.hpp"
 #include "ObstacleFactory.hpp"
 #include "FlockingAgentSpecification.hpp"
 #include "App.hpp"
+#include "Config.hpp"
 
 using namespace std;
 using namespace qgf;
@@ -28,61 +28,23 @@ int main()
 	//start the app
 	FA::App::Instance().Init();
 
-	//add some place holder agents, preds and obs to demonstrate functionality
+	//Configurables
+	FA::Config* config = FA::App::Instance().GetConfig();
 
-	//TODO configurables
-	//General Agent Options
-	int agentCount = 500;
-	float predatorRatio = 0.1f;
-
-	int predatorCount = std::roundf((float)agentCount / predatorRatio);
-	int preyCount = agentCount - predatorCount;
-
-	//Prey Configurables
-	bool preyAvoidanceEnabled = true;
-
-	if (preyAvoidanceEnabled)
-	{
-		int preyAvoidanceMinRad = 25;
-		int preyAvoidanceMaxRad = 25;
-		int preyAvoidanceMinAng = 180;
-		int preyAvoidanceMaxAng = 180;
-		int preyAvoidanceMinInf = 80;
-		int preyAvoidanceMaxInf = 80;
-
-
-	}
-
-	
-
-#pragma region prey
-	FA::AgentFactory::Params p;
-
-	p.spawnAt.SetRadius(Range(0,30));
-	p.accel = Range(500, 1000);
-	p.startingVel.SetRadius(Range(-2, 2));
-
-	p.size = Range(1, 1);
-	p.mass = Range(4, 4);
-	p.spec.SetAvoidance(FA::SensorSpecification(25, 25, 180, 180, 80, 80));
-	p.spec.SetGrouping(FA::SensorSpecification(50, 50, 120, 120, 50, 50));
-	p.spec.SetHeading(FA::SensorSpecification(30, 30, 90, 90, 50, 50));
-	p.spec.SetSpeed(FA::SensorSpecification(40, 40, 70, 70, 20, 20));
-	p.spec.SetFlee(FA::SensorSpecification(40, 40, 180, 180, 220, 220));
+	int predatorCount = std::roundf((float)config->totalAgents * config->agentRatio);
+	int preyCount = config->totalAgents - predatorCount;
 
 	for (int i = 0; i < preyCount; ++i)
 	{
-		FA::App::Instance().GetAgentFactory()->Create(p);
+		FA::App::Instance().GetAgentFactory()->Create(true);
 	}
-#pragma endregion
 
 #pragma region pred
-	p.isPrey = false;
-	p.spec.SetChase(FA::SensorSpecification(240, 240, 90, 90, 1000, 1000));
+	FA::AgentFactory::Params pred;
 
 	for (int i = 0; i < predatorCount; i++)
 	{
-		FA::App::Instance().GetAgentFactory()->Create(p);
+		FA::App::Instance().GetAgentFactory()->Create(false);
 	}
 
 #pragma endregion

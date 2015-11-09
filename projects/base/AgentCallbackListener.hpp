@@ -1,10 +1,8 @@
-#include <Box2D/Dynamics/b2WorldCallbacks.h>
-#include <Box2D/Dynamics/Contacts/b2Contact.h>
-#include "FlockingAgent.hpp"
+#ifndef AGENT_CALLBACK_LISTENER
+#define AGENT_CALLBACK_LISTENER
 
 namespace FA
 {
-
 	class AgentContactListener : public b2ContactListener
 	{
 	public:
@@ -24,10 +22,19 @@ namespace FA
 				//If one of us is not prey (predator), we now become a predator.
 				if (agentA->GetIsPrey() != agentB->GetIsPrey())
 				{
-					agentA->SetIsPrey(false);
-					agentB->SetIsPrey(false);
+					if (agentA->GetIsPrey())
+					{
+						agentA->Infect();
+					}
+
+					else if (agentB->GetIsPrey())
+					{
+						agentB->Infect();
+					}
 				}
 			}
 		}
 	};
 }
+
+#endif

@@ -1,6 +1,9 @@
+#include <SFML/Graphics.hpp>
+
 #include "FlockingAgent.hpp"
 #include "Debug.hpp"
-
+#include "App.hpp"
+#include "FlockingAgentFactory.hpp"
 
 const float RIGHT_ANGLE = 90 * 0.0174532925f;
 
@@ -73,7 +76,7 @@ void FA::FlockingAgent::Prepare()
 
 void FA::FlockingAgent::Update(float dt, FlockingAgent** agents, size_t count)
 {
-	for (int i = 0; i < count; ++i)
+	for (size_t i = 0; i < count; ++i)
 	{
 		//don't try to flock with yourself
 		if (agents[i] == this) continue;
@@ -214,4 +217,36 @@ void FA::FlockingAgent::Finalise(float dt)
 	}
 
 	AddForce(totalForce*dt);
+}
+
+void FA::FlockingAgent::Infect()
+{
+	SetIsPrey(false);
+	FA::AgentFactory::Params* newParams = FA::App::Instance().GetAgentFactory()->mPredParams;
+
+		//generate from rands
+	float size = newParams->size.Rand();
+	float mass = newParams->mass.Rand();
+	SetSensorArray(newParams->spec.Generate());
+
+	//update dynamic body
+	//b2Body* body = GetBody();
+	//body->SetType(b2_dynamicBody);
+	//body->SetFixedRotation(true);
+
+	//body->SetLinearDamping(0.1f);
+
+	//b2Fixture* fixture = body->GetFixtureList();
+	//fixture->GetShape()->m_radius = size;
+	//fixture->SetDensity(mass / (b2_pi *size*size));
+	//fixture->SetFriction(0.3f);
+
+	//update centre circle
+	GetCentreCircle()->setRadius(size);
+	GetCentreCircle()->setOrigin(size, size);
+
+	//update vals
+	SetVelocity(newParams->startingVel.Rand());
+	SetMaxAccel(newParams->accel.Rand());
+	SetIsPrey(false);
 }

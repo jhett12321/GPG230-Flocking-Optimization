@@ -2,12 +2,8 @@
 #define FA_SCENE_H
 
 #include <vector>
-
-//HACK lazy include
 #include "FlockingAgent.hpp"
 #include "Obstacle.hpp"
-
-#include "Macros.hpp"
 
 //pre-dec
 namespace sf{ class RenderWindow; }
@@ -21,32 +17,41 @@ namespace FA
 	{
 	public:
 		Scene();
-		~Scene(); 
+		~Scene();
 
 		void Update(float dt);
 
 		void Render(sf::RenderWindow& rw);
 
 		void AddAgent(FlockingAgent* fa){ mAgents.push_back(fa); }
-		
-		//terrible
+
 		void EraseAgent(FlockingAgent* fa)
-		{ 
-			auto loc = std::find(mAgents.begin(), mAgents.end(), fa);
-			if (loc != mAgents.end())
-				mAgents.erase(loc); 
-		}	//the horror
-		
-		
+		{
+			for (size_t i = 0; i < mAgents.size(); ++i)
+			{
+				if (mAgents[i] = fa)
+				{
+					mAgents[i] = mAgents[mAgents.size() - 1];
+					mAgents.pop_back();
+					break;
+				}
+			}
+		}
+
 		void AddObstacle(Obstacle* o){ mObstacles.push_back(o); }
-		
-		//terrible
+
 		void EraseObstacle(Obstacle* o)
 		{
-			auto loc = std::find(mObstacles.begin(), mObstacles.end(), o);
-			if (loc != mObstacles.end())
-				mObstacles.erase(loc);
-		}	//the horror
+			for (size_t i = 0; i < mObstacles.size(); ++i)
+			{
+				if (mObstacles[i] = o)
+				{
+					mObstacles[i] = mObstacles[mObstacles.size() - 1];
+					mObstacles.pop_back();
+					break;
+				}
+			}
+		}
 
 		//allows app to clean up
 		void AgentListCopy(std::vector<FlockingAgent*>& out) { out = mAgents; }

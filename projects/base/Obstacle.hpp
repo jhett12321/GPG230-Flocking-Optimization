@@ -1,11 +1,10 @@
 #ifndef OBSTACLE_H
 #define OBSTACLE_H
 
-//lazy includes
-#include <SFML\Graphics.hpp>
 #include <Box2D\Box2D.h>
+#include <kf/kf_vector2.h>
+#include <SFML/Graphics/Drawable.hpp>
 
-#include "kf\kf_vector2.h"
 #include "Macros.hpp"
 
 namespace FA
