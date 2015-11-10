@@ -42,6 +42,8 @@ namespace FA
 		RO_PTR_PROPERTY(sf::Clock, Clock);
 		RO_PTR_PROPERTY(FA::Config, Config);
 		RO_DATA_PROPERTY(bool, IsRunning);
+		RO_DATA_PROPERTY(int, WindowWidth);
+		RO_DATA_PROPERTY(int, WindowHeight);
 		RO_DATA_PROPERTY(bool, LockFrameRate);
 		RO_DATA_PROPERTY(int, LockFrameRateAmt);
 		RO_DATA_PROPERTY(bool, IsInit);

@@ -50,8 +50,11 @@ bool FA::App::Init()
 	mLockFrameRate = mConfig->frameRateLockEnabled;
 	mLockFrameRateAmt = 1000 / mConfig->frameRateCapAmt;
 
+	mWindowWidth = 800;
+	mWindowHeight = 800;
+
 	//create window, worlds, factories, etc.
-	mWindow = new sf::RenderWindow(sf::VideoMode(800, 800, 32), WINDOW_TITLE, sf::Style::Close);
+	mWindow = new sf::RenderWindow(sf::VideoMode(mWindowWidth, mWindowHeight, 32), WINDOW_TITLE, sf::Style::Close);
 	mWindow->setVerticalSyncEnabled(true);
 	mClock = new sf::Clock();
 	mPhysWorld = new b2World(b2Vec2_zero);
@@ -124,6 +127,9 @@ void FA::App::RenderUpdate(sf::Clock& frameRateClock)
 		// Calling display will make the contents of the window appear on screen (before this, it was kept hidden in the back buffer).
 		mWindow->display();
 
+		//Loop through agents and add it to our existing data.
+
+
 		float deltaT = roundf(1 / frameRateClock.getElapsedTime().asSeconds());
 		int frames = deltaT;
 		mWindow->setTitle(WINDOW_TITLE + std::to_string(frames));
@@ -136,6 +142,52 @@ FA::App::~App()
 	//not really needed as we're a program lifetime singleton but it's better to be sure
 
 	//since we are taking it all down with us we could optimise this but lets be thorough
+
+	//Generate Heatmap
+	std::vector<int> heatMap = mScene->mPosFrequency;
+
+	int maxValue = 0;
+	int minValue = -1;
+
+	for (size_t i = 0; i < heatMap.size(); ++i)
+	{
+		if (heatMap[i] > maxValue)
+		{
+			maxValue = heatMap[i];
+		}
+
+		else if (heatMap[i] < minValue || minValue == -1)
+		{
+			minValue = heatMap[i];
+		}
+	}
+
+	sf::Image outputFile;
+	outputFile.create(mWindowWidth, mWindowHeight, sf::Color::Transparent);
+
+	for (size_t i = 0; i < heatMap.size(); ++i)
+	{
+		int posX = i % mWindowWidth;
+		int posY = i / mWindowWidth;
+
+		sf::Color outputColor;
+
+		outputColor.r = std::pow(heatMap[i] / (float)maxValue, 0.5f) * 255;
+		outputColor.g = std::pow(heatMap[i] / (float)maxValue, 0.65f) * 255;
+		outputColor.b = std::pow(heatMap[i] / (float)maxValue, 0.75f) * 255;
+		outputColor.a = std::pow(heatMap[i] / (float)maxValue, 0.75f) * 255;
+		//if (heatMap[i] > 0)
+		//{
+		//	outputColor.r = 255;
+		//	outputColor.g = 255;
+		//	outputColor.b = 255;
+		//	outputColor.a = 255;
+		//}
+
+		outputFile.setPixel(posX, posY, outputColor);
+	}
+
+	outputFile.saveToFile("heatmap.png");
 
 	//get a copy
 	std::vector<FlockingAgent*> agents;

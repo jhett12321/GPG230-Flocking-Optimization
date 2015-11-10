@@ -59,6 +59,8 @@ namespace FA
 		void ObstacleListCopy(std::vector<Obstacle*>& out) { out = mObstacles; }
 		void ClearObstacleList(){ mObstacles.clear(); }
 
+		std::vector<int> mPosFrequency;
+
 	protected:
 		std::vector<FlockingAgent*> mAgents;
 		std::vector<Obstacle*> mObstacles;
