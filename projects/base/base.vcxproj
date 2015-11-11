@@ -92,6 +92,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="FlockingAgent.cpp" />
     <ClCompile Include="FlockingAgentFactory.cpp" />
+    <ClCompile Include="Heatmap.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="ObstacleFactory.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="FlockingAgent.hpp" />
     <ClInclude Include="FlockingAgentFactory.hpp" />
     <ClInclude Include="FlockingAgentSpecification.hpp" />
+    <ClInclude Include="Heatmap.hpp" />
     <ClInclude Include="IJsonSerializable.hpp" />
     <ClInclude Include="Macros.hpp" />
     <ClInclude Include="Obstacle.hpp" />

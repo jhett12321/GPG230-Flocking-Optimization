@@ -2,21 +2,15 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "App.hpp"
+#include "Heatmap.hpp"
+#include <iostream>
 
 FA::Scene::Scene()
 {
-	for (size_t i = 0; i < FA::App::Instance().GetWindowHeight(); ++i)
-	{
-		for (size_t j = 0; j < FA::App::Instance().GetWindowWidth(); ++j)
-		{
-			mPosFrequency.push_back(0);
-		}
-	}
 }
 
 FA::Scene::~Scene()
 {
-
 }
 
 void FA::Scene::Update(float dt)
@@ -34,15 +28,22 @@ void FA::Scene::Update(float dt)
 	}
 
 	//finalise all
+	int preyCount = 0;
+
 	for (auto f : mAgents)
 	{
 		f->Finalise(dt);
 		int agentPosX = f->GetPosition().x;
 		int agentPosY = f->GetPosition().y;
 
-		if (agentPosX > 0 && agentPosX < FA::App::Instance().GetWindowWidth() && agentPosY > 0 && agentPosY <= FA::App::Instance().GetWindowHeight())
+		if (agentPosX >= 0 && agentPosX < FA::App::Instance().GetWindowWidth() && agentPosY >= 0 && agentPosY < FA::App::Instance().GetWindowHeight())
 		{
-			mPosFrequency[(agentPosX + agentPosY * FA::App::Instance().GetWindowWidth())]++;
+			FA::App::Instance().GetHeatmap()->mPosFrequency[(agentPosX + agentPosY * FA::App::Instance().GetWindowWidth())]++;
+		}
+
+		if (f->GetIsPrey())
+		{
+			++preyCount;
 		}
 	}
 
@@ -79,6 +80,12 @@ void FA::Scene::Update(float dt)
 		}
 
 	}
+
+	if (preyCount == 0)
+	{
+		//No more prey. Exit the app.
+		App::Instance().Exit();
+	}
 }
 
 void EncapuslateRect(sf::FloatRect& rect, kf::Vector2f& p)
@@ -110,16 +117,24 @@ void FA::Scene::Render(sf::RenderWindow& rw)
 	r.width += 100;
 	r.height += 100;
 
+	//Clamp our view
+	sf::Vector2u windowSize = FA::App::Instance().GetWindow()->getSize();
+
+	r.left = std::max(r.left, 0.0f);
+	r.top = std::max(r.top, 0.0f);
+	r.width = std::min(r.width, (float)windowSize.x);
+	r.height = std::min(r.height, (float)windowSize.y);
+
 	//make square
 	r.width = std::max(r.width, r.height);
 	r.height = r.width;
 
 	//not great but good enough
 //	sf::View v(kf::Vector2f(0, 0), kf::Vector2f(100, 100));//r);
-	//sf::View v(r);
+	sf::View v(r);
 
 
-	//rw.setView(v);
+	rw.setView(v);
 
 	//sf::UdpSocket sock;
 	//sf::IpAddress ip("10.40.60.35");

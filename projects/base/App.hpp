@@ -19,6 +19,7 @@ namespace FA
 	class Scene;
 	class AgentContactListener;
 	class Config;
+	class Heatmap;
 
 	/**
 		App controls the window and how to set up the scene
@@ -33,6 +34,8 @@ namespace FA
 
 		void Run();
 
+		void Exit();
+
 		void PhysicsUpdate(float deltaT);
 
 		void RenderUpdate(sf::Clock& frameRateClock);
@@ -41,6 +44,7 @@ namespace FA
 		RO_PTR_PROPERTY(sf::RenderWindow, Window);
 		RO_PTR_PROPERTY(sf::Clock, Clock);
 		RO_PTR_PROPERTY(FA::Config, Config);
+		RO_PTR_PROPERTY(FA::Heatmap, Heatmap);
 		RO_DATA_PROPERTY(bool, IsRunning);
 		RO_DATA_PROPERTY(int, WindowWidth);
 		RO_DATA_PROPERTY(int, WindowHeight);

@@ -53,7 +53,7 @@ int main()
 	FA::ObstacleFactory::Params op;
 
 	op.size = kf::Vector2f(20, 20);
-	op.pos = kf::Vector2f(120, 0);
+	op.pos = kf::Vector2f(420, 300);
 	op.rotation = 25 * DEG2RAD;
 	op.type = FA::Obstacle::Type::Rect;
 
@@ -62,7 +62,7 @@ int main()
 #pragma endregion
 
 #pragma region circ_obs
-	op.pos = kf::Vector2f(230, 0);
+	op.pos = kf::Vector2f(530, 300);
 	op.type = FA::Obstacle::Type::Circ;
 	FA::App::Instance().GetObstacleFactory()->Create(op);
 

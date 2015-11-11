@@ -198,6 +198,9 @@ FA::FlockingAgent* FA::AgentFactory::Create(bool isPrey)const
 	else
 	{
 		startPos = p.spawnAt.Rand();
+
+		startPos.x += windowSize.x / 2;
+		startPos.y += windowSize.y / 2;
 	}
 
 	//set vals

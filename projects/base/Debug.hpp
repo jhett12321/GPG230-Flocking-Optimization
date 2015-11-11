@@ -35,7 +35,7 @@ namespace FA
 		void DrawAll(sf::RenderTarget& rt);
 
 	private:
-		Debug():mEnabled(true){}
+		Debug():mEnabled(false){}
 		std::vector<LineData> mLines;
 		PUBLIC_DATA_PROPERTY(bool, Enabled);
 	};

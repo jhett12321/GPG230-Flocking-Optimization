@@ -3405,7 +3405,7 @@
             this.toolTip.SetToolTip(this.clientPhysInt, "The interval between agent and physics updates, which are independent from frame " +
         "rate.");
             this.clientPhysInt.Value = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             131072});
@@ -3533,7 +3533,7 @@
             this.serverPhysInt.ThousandsSeparator = true;
             this.toolTip.SetToolTip(this.serverPhysInt, "Caps the number of updates that the client can send to the server.");
             this.serverPhysInt.Value = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             131072});
