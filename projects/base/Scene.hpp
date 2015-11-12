@@ -62,6 +62,8 @@ namespace FA
 	protected:
 		std::vector<FlockingAgent*> mAgents;
 		std::vector<Obstacle*> mObstacles;
+	private:
+		bool mHitBorder = false;
 	};
 }
 

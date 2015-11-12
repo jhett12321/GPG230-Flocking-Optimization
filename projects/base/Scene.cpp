@@ -3,6 +3,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "App.hpp"
 #include "Heatmap.hpp"
+#include <ppl.h>
 #include <iostream>
 
 FA::Scene::Scene()
@@ -16,36 +17,37 @@ FA::Scene::~Scene()
 void FA::Scene::Update(float dt)
 {
 	//prep all
-	for (auto f : mAgents)
+	concurrency::parallel_for((size_t)0, mAgents.size(), [&](size_t i)
 	{
-		f->Prepare();
-	}
+		mAgents[i]->Prepare();
+	});
 
 	//pass all agents to all
-	for (auto f : mAgents)
+	concurrency::parallel_for((size_t)0, mAgents.size(), [&](size_t i)
 	{
-		f->Update(dt, &mAgents[0], mAgents.size());
-	}
+		mAgents[i]->Update(dt, &mAgents[0], mAgents.size());
+	});
 
 	//finalise all
 	int preyCount = 0;
 
-	for (auto f : mAgents)
+	concurrency::parallel_for((size_t)0, mAgents.size(), [&](size_t i)
 	{
-		f->Finalise(dt);
-		int agentPosX = f->GetPosition().x;
-		int agentPosY = f->GetPosition().y;
+		mAgents[i]->Finalise(dt);
+
+		int agentPosX = mAgents[i]->GetPosition().x;
+		int agentPosY = mAgents[i]->GetPosition().y;
 
 		if (agentPosX >= 0 && agentPosX < FA::App::Instance().GetWindowWidth() && agentPosY >= 0 && agentPosY < FA::App::Instance().GetWindowHeight())
 		{
 			FA::App::Instance().GetHeatmap()->mPosFrequency[(agentPosX + agentPosY * FA::App::Instance().GetWindowWidth())]++;
 		}
 
-		if (f->GetIsPrey())
+		if (mAgents[i]->GetIsPrey())
 		{
 			++preyCount;
 		}
-	}
+	});
 
 	sf::Vector2u windowSize = FA::App::Instance().GetWindow()->getSize();
 	float agentSize = 0.0f;
@@ -53,6 +55,7 @@ void FA::Scene::Update(float dt)
 	//Check positions and wrap around.
 	for (auto f : mAgents)
 	{
+		agentSize = f->GetSize();
 		kf::Vector2f currentPos = f->GetPosition();
 
 		//Agent went off the left side of the screen.
@@ -112,43 +115,37 @@ void FA::Scene::Render(sf::RenderWindow& rw)
 	//determine view
 
 	//expand so there is a border
-	r.left -= 50;
-	r.top -= 50;
-	r.width += 100;
-	r.height += 100;
+	if (!mHitBorder)
+	{
+		r.left -= 50;
+		r.top -= 50;
+		r.width += 100;
+		r.height += 100;
 
-	//Clamp our view
-	sf::Vector2u windowSize = FA::App::Instance().GetWindow()->getSize();
+		//Clamp our view
+		sf::Vector2u windowSize = FA::App::Instance().GetWindow()->getSize();
 
-	r.left = std::max(r.left, 0.0f);
-	r.top = std::max(r.top, 0.0f);
-	r.width = std::min(r.width, (float)windowSize.x);
-	r.height = std::min(r.height, (float)windowSize.y);
+		r.left = std::max(r.left, 0.0f);
+		r.top = std::max(r.top, 0.0f);
+		r.width = std::min(r.width, (float)windowSize.x);
+		r.height = std::min(r.height, (float)windowSize.y);
 
-	//make square
-	r.width = std::max(r.width, r.height);
-	r.height = r.width;
+		if (r.left == 0.0f && r.top == 0.0f && r.width == windowSize.x && r.height == windowSize.y)
+		{
+			mHitBorder = true;
+		}
 
-	//not great but good enough
-//	sf::View v(kf::Vector2f(0, 0), kf::Vector2f(100, 100));//r);
-	sf::View v(r);
+		//make square
+		r.width = std::max(r.width, r.height);
+		r.height = r.width;
 
+		sf::View v(r);
 
-	rw.setView(v);
-
-	//sf::UdpSocket sock;
-	//sf::IpAddress ip("10.40.60.35");
-	//PacketCircle c;
-	//c.type = Packet::e_circle;
-	//c.radius = 2;
+		rw.setView(v);
+	}
 
 	for (auto f : mAgents)
 	{
 		rw.draw(*f);
-
-		/*c.x = f->GetPosition().x + 400;
-		c.y = f->GetPosition().y + 400;
-
-		sock.send(&c, sizeof(c), ip, 1300);*/
 	}
 }

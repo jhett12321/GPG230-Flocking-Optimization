@@ -10,6 +10,7 @@ namespace sf
 	class Sprite;
 	class RenderTarget;
 	class Texture;
+	class Image;
 }
 
 namespace FA
@@ -40,8 +41,9 @@ namespace FA
 	private:
 		sf::Sprite* mSprite;
 		sf::Texture* mTexture;
+		sf::Image* mTexData;
 
-		const int mIntensityMultiplier = 10;
+		int mIntensityMultiplier = 75;
 		PUBLIC_DATA_PROPERTY(bool, DrawEnabled);
 	};
 }

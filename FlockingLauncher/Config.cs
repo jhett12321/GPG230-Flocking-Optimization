@@ -128,6 +128,8 @@
     public float clientPhysInt;
     public bool frameRateLockEnabled;
     public int frameRateCapAmt;
+    public int hmapIntensity;
+
     #endregion
 
     #region Client Network

@@ -174,12 +174,16 @@
             this.preyAvoidanceEnabled = new System.Windows.Forms.CheckBox();
             this.preyBehaviourLabel = new System.Windows.Forms.Label();
             this.clientOptions = new System.Windows.Forms.TabPage();
+            this.outputSettings = new System.Windows.Forms.Panel();
+            this.hmapIntensity = new System.Windows.Forms.NumericUpDown();
+            this.labelHmapIntensity = new System.Windows.Forms.Label();
             this.clientNetwork = new System.Windows.Forms.Panel();
             this.broadcastEnabled = new System.Windows.Forms.CheckBox();
             this.clientConnectPort = new System.Windows.Forms.TextBox();
             this.clientConnectIP = new System.Windows.Forms.TextBox();
             this.clientConnectPortLabel = new System.Windows.Forms.Label();
             this.clientConnectIPLabel = new System.Windows.Forms.Label();
+            this.labelOutputSettings = new System.Windows.Forms.Label();
             this.labelClientNetwork = new System.Windows.Forms.Label();
             this.clientPerf = new System.Windows.Forms.Panel();
             this.labelClientPhysIntSec = new System.Windows.Forms.Label();
@@ -304,6 +308,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.preyAvoidanceMaxRad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.preyAvoidanceMinRad)).BeginInit();
             this.clientOptions.SuspendLayout();
+            this.outputSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.hmapIntensity)).BeginInit();
             this.clientNetwork.SuspendLayout();
             this.clientPerf.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.frameRateCapAmt)).BeginInit();
@@ -3226,7 +3232,9 @@
             // 
             // clientOptions
             // 
+            this.clientOptions.Controls.Add(this.outputSettings);
             this.clientOptions.Controls.Add(this.clientNetwork);
+            this.clientOptions.Controls.Add(this.labelOutputSettings);
             this.clientOptions.Controls.Add(this.labelClientNetwork);
             this.clientOptions.Controls.Add(this.clientPerf);
             this.clientOptions.Controls.Add(this.labelClientPerf);
@@ -3236,6 +3244,47 @@
             this.clientOptions.TabIndex = 4;
             this.clientOptions.Text = "Client Options";
             this.clientOptions.UseVisualStyleBackColor = true;
+            // 
+            // outputSettings
+            // 
+            this.outputSettings.BackColor = System.Drawing.Color.Transparent;
+            this.outputSettings.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.outputSettings.Controls.Add(this.hmapIntensity);
+            this.outputSettings.Controls.Add(this.labelHmapIntensity);
+            this.outputSettings.Location = new System.Drawing.Point(18, 268);
+            this.outputSettings.Name = "outputSettings";
+            this.outputSettings.Size = new System.Drawing.Size(453, 45);
+            this.outputSettings.TabIndex = 14;
+            // 
+            // hmapIntensity
+            // 
+            this.hmapIntensity.BackColor = System.Drawing.SystemColors.Window;
+            this.hmapIntensity.Location = new System.Drawing.Point(138, 9);
+            this.hmapIntensity.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.hmapIntensity.Name = "hmapIntensity";
+            this.hmapIntensity.Size = new System.Drawing.Size(84, 20);
+            this.hmapIntensity.TabIndex = 8;
+            this.hmapIntensity.ThousandsSeparator = true;
+            this.hmapIntensity.Value = new decimal(new int[] {
+            75,
+            0,
+            0,
+            0});
+            // 
+            // labelHmapIntensity
+            // 
+            this.labelHmapIntensity.AutoSize = true;
+            this.labelHmapIntensity.Location = new System.Drawing.Point(10, 11);
+            this.labelHmapIntensity.Name = "labelHmapIntensity";
+            this.labelHmapIntensity.Size = new System.Drawing.Size(92, 13);
+            this.labelHmapIntensity.TabIndex = 4;
+            this.labelHmapIntensity.Text = "Heatmap Intensity";
+            this.toolTip.SetToolTip(this.labelHmapIntensity, "The interval between agent and physics updates, which are independent from frame " +
+        "rate.");
             // 
             // clientNetwork
             // 
@@ -3308,6 +3357,17 @@
             this.clientConnectIPLabel.TabIndex = 2;
             this.clientConnectIPLabel.Text = "Connect IP";
             this.toolTip.SetToolTip(this.clientConnectIPLabel, "The direct server IP you wish to connect to.");
+            // 
+            // labelOutputSettings
+            // 
+            this.labelOutputSettings.AutoSize = true;
+            this.labelOutputSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOutputSettings.Location = new System.Drawing.Point(15, 249);
+            this.labelOutputSettings.Name = "labelOutputSettings";
+            this.labelOutputSettings.Size = new System.Drawing.Size(80, 13);
+            this.labelOutputSettings.TabIndex = 13;
+            this.labelOutputSettings.Text = "Output Settings";
+            this.labelOutputSettings.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // labelClientNetwork
             // 
@@ -3784,6 +3844,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.preyAvoidanceMinRad)).EndInit();
             this.clientOptions.ResumeLayout(false);
             this.clientOptions.PerformLayout();
+            this.outputSettings.ResumeLayout(false);
+            this.outputSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.hmapIntensity)).EndInit();
             this.clientNetwork.ResumeLayout(false);
             this.clientNetwork.PerformLayout();
             this.clientPerf.ResumeLayout(false);
@@ -3983,6 +4046,10 @@
         private System.Windows.Forms.NumericUpDown serverPhysInt;
         private System.Windows.Forms.Label labelServerPhysInt;
         private System.Windows.Forms.Label labelServerPhysIntSec;
+        private System.Windows.Forms.Panel outputSettings;
+        private System.Windows.Forms.NumericUpDown hmapIntensity;
+        private System.Windows.Forms.Label labelHmapIntensity;
+        private System.Windows.Forms.Label labelOutputSettings;
     }
 }
 

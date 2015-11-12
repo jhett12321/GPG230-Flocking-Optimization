@@ -6,10 +6,10 @@
 
 #include "FlockingAgentSpecification.hpp"
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
 
 namespace sf
 {
-	class CircleShape;
 	class ConvexShape;
 }
 
@@ -74,6 +74,8 @@ namespace FA
 		void SetVelocity(kf::Vector2f& vel) { mBody->SetLinearVelocity(vel); }
 
 		float GetSpeed() const { return mBody->GetLinearVelocity().Length(); }
+
+		float GetSize()const { return mCentreCircle->getRadius(); }
 
 
 	protected:

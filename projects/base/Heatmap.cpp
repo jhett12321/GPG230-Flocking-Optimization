@@ -1,7 +1,9 @@
 #include "Heatmap.hpp"
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Image.hpp>
+#include <ppl.h>
 #include "App.hpp"
+#include "Config.hpp"
 #include <kf/kf_math.h>
 #include <iostream>
 
@@ -104,10 +106,15 @@ FA::Heatmap::Heatmap()
 {
 	FA::App &appInst = FA::App::Instance();
 
+	mIntensityMultiplier = appInst.GetConfig()->hmapIntensity;
+
 	mTexture = new sf::Texture();
 	mTexture->create(appInst.GetWindowWidth(), appInst.GetWindowHeight());
 
 	mSprite = new sf::Sprite(*mTexture);
+
+	mTexData = new sf::Image();
+	mTexData->create(appInst.GetWindowWidth(), appInst.GetWindowHeight());
 
 	mDrawEnabled = false;
 
@@ -131,24 +138,19 @@ void FA::Heatmap::DrawHeatmap(sf::RenderTarget& rt)
 		FA::App &appInst = FA::App::Instance();
 		sf::Window* window = appInst.GetWindow();
 
-		sf::Image texData;
-		texData.create(appInst.GetWindowWidth(), appInst.GetWindowHeight(), sf::Color::Black);
-
 		int maxValue = GetMaxValue();
 
-		for (size_t i = 0; i < mPosFrequency.size(); ++i)
+		concurrency::parallel_for((size_t)0, mPosFrequency.size(), [&](size_t i)
 		{
 			int posX = i % appInst.GetWindowWidth();
 			int posY = i / appInst.GetWindowWidth();
 
 			sf::Color outputColor = GetColorFromIntensity(kf::expose(mPosFrequency[i] / (float)maxValue * mIntensityMultiplier));
 
-			texData.setPixel(posX, posY, outputColor);
-		}
+			mTexData->setPixel(posX, posY, outputColor);
+		});
 
-		bool test = true;
-
-		mTexture->update(texData);
+		mTexture->update(*mTexData);
 
 		rt.draw(*mSprite);
 	}
@@ -157,21 +159,21 @@ void FA::Heatmap::DrawHeatmap(sf::RenderTarget& rt)
 void FA::Heatmap::SaveToFile(const std::string& filename)
 {
 	FA::App &appInst = FA::App::Instance();
-
-	sf::Image outputFile;
-	outputFile.create(appInst.GetWindowWidth(), appInst.GetWindowHeight(), sf::Color::Black);
+	sf::Window* window = appInst.GetWindow();
 
 	int maxValue = GetMaxValue();
 
-	for (size_t i = 0; i < mPosFrequency.size(); ++i)
+	concurrency::parallel_for((size_t)0, mPosFrequency.size(), [&](size_t i)
 	{
 		int posX = i % appInst.GetWindowWidth();
 		int posY = i / appInst.GetWindowWidth();
 
-		sf::Color outputColor = GetColorFromIntensity(kf::expose(mPosFrequency[i] / (float)maxValue* mIntensityMultiplier));
+		sf::Color outputColor = GetColorFromIntensity(kf::expose(mPosFrequency[i] / (float)maxValue * mIntensityMultiplier));
 
-		outputFile.setPixel(posX, posY, outputColor);
-	}
+		mTexData->setPixel(posX, posY, outputColor);
+	});
 
-	outputFile.saveToFile(filename);
+	mTexture->update(*mTexData);
+
+	mTexData->saveToFile(filename);
 }

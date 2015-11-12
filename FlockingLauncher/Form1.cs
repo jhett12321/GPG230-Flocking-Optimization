@@ -221,6 +221,7 @@ namespace FlockingLauncher
             config.clientPhysInt = Convert.ToSingle(clientPhysInt.Value);
             config.frameRateLockEnabled = frameRateLockEnabled.Checked;
             config.frameRateCapAmt = Convert.ToInt32(frameRateCapAmt.Value);
+            config.hmapIntensity = Convert.ToInt32(hmapIntensity.Value);
 
             // Client Network
             config.clientConnectIP = clientConnectIP.Text;
@@ -361,6 +362,7 @@ namespace FlockingLauncher
             clientPhysInt.Value = Convert.ToDecimal(config.clientPhysInt);
             frameRateLockEnabled.Checked = config.frameRateLockEnabled;
             frameRateCapAmt.Value = Convert.ToDecimal(config.frameRateCapAmt);
+            hmapIntensity.Value = Convert.ToDecimal(config.hmapIntensity);
 
             // Client Network
             clientConnectIP.Text = config.clientConnectIP;

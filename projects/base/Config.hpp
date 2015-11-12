@@ -139,6 +139,7 @@ namespace FA
 		float clientPhysInt;
 		bool frameRateLockEnabled;
 		int frameRateCapAmt;
+		int hmapIntensity;
 		#pragma endregion
 
 		#pragma region Client Network

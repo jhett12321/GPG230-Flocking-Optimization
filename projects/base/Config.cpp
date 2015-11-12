@@ -132,6 +132,7 @@ void FA::Config::Deserialize(Json::Value& root)
 	clientPhysInt = root.get("clientPhysInt", 0.01).asFloat();
 	frameRateLockEnabled = root.get("frameRateLockEnabled", false).asBool();
 	frameRateCapAmt = root.get("frameRateCapAmt", 60).asInt();
+	hmapIntensity = root.get("hmapIntensity", 75).asInt();
 	#pragma endregion
 
 	#pragma region Client Network
